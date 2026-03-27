@@ -17,4 +17,8 @@ namespace CCTJ {
     export function winstonImage(): Image {
         return sunglassesMode ? Art.winstonShades : Art.winstonRight
     }
+
+    export function winstonWalkImages(): Image[] {
+        return sunglassesMode ? Art.winstonShadesWalkFrames() : Art.winstonWalkFrames()
+    }
 }

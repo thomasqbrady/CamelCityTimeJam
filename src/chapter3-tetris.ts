@@ -62,6 +62,17 @@ namespace CCTJ {
         for (let b of blocks) {
             out.push([-b[1], b[0]])
         }
+        // Normalize so min x and min y are 0
+        let minX = out[0][0]
+        let minY = out[0][1]
+        for (let b of out) {
+            if (b[0] < minX) minX = b[0]
+            if (b[1] < minY) minY = b[1]
+        }
+        for (let b of out) {
+            b[0] -= minX
+            b[1] -= minY
+        }
         return out
     }
 
@@ -307,81 +318,77 @@ namespace CCTJ {
         say(["ROUND 1: Pentominoes! 5-square shapes. No rotation. Survive 10 seconds!"])
         let r1 = playTetrisRound(1, true)
 
-        if (!r1) {
-            let pick = chooseIdea("What am I missing?", [
-                new ChoiceOption("It seems like a fine puzzle", true, false),
-                new ChoiceOption("Simpler shapes (4 squares)", false, false),
-                new ChoiceOption("Clear completed rows", false, false)
-            ])
-            if (pick == 0) {
-                setupRichScene(Art.drawMoscowLab, Art.pajitnov)
-                npcSay("PAJITNOV",
-                    "Maybe you're right. Or maybe I should get back to testing this computer.")
-            }
+        setupRichScene(Art.drawMoscowLab, Art.pajitnov)
+        if (r1) {
+            npcSay("PAJITNOV",
+                "You see? The shapes are too complicated. 12 different pieces, each with 5 squares...")
+        } else {
+            npcSay("PAJITNOV",
+                "See? It's too hard! What do you think?")
+        }
+
+        let pick1 = chooseIdea("How would you improve it?", [
+            new ChoiceOption("It seems like a fine puzzle", true),
+            new ChoiceOption("Simpler shapes (4 squares)", r1)
+        ])
+
+        if (pick1 == 0) {
+            setupRichScene(Art.drawMoscowLab, Art.pajitnov)
+            npcSay("PAJITNOV",
+                "Maybe you're right. Or maybe I should get back to testing this computer.")
             return
         }
 
-        // Survived — B unlocks
+        // Player chose to improve — simpler shapes
+        creativityScore += 1
         setupRichScene(Art.drawMoscowLab, Art.pajitnov)
         npcSay("PAJITNOV",
-            "You see? The shapes are too complicated. 12 different pieces, each with 5 squares...")
-        npcSay("PAJITNOV", "What would you change?")
-
-        let pickB = chooseIdea("You survived! Suggest an improvement:", [
-            new ChoiceOption("It seems like a fine puzzle", false, true),
-            new ChoiceOption("Simpler shapes (4 squares)", true, false),
-            new ChoiceOption("Clear completed rows", false, false)
-        ])
-
-        if (pickB == 1) {
-            setupRichScene(Art.drawMoscowLab, Art.pajitnov)
-            npcSay("PAJITNOV",
-                "Four squares each... that would be only... seven shapes!")
-            npcSay("PAJITNOV",
-                "Much simpler! And you could rotate them!")
-            npcSay("PAJITNOV",
-                "Four... tetra... I could call it... hmm, never mind the name.")
-        }
+            "Four squares each... that would be only... seven shapes!")
+        npcSay("PAJITNOV",
+            "Much simpler! And you could rotate them!")
+        npcSay("PAJITNOV",
+            "Four... tetra... I could call it... hmm, never mind the name.")
 
         // ── Round 2: Tetrominoes ───────────────────────────────
         say(["ROUND 2: Tetrominoes! 4-square shapes. Press A to rotate!"])
         let r2 = playTetrisRound(2, true)
-        creativityScore += 1
 
-        if (!r2) {
+        setupRichScene(Art.drawMoscowLab, Art.pajitnov)
+        if (r2) {
+            npcSay("PAJITNOV",
+                "Better! But the well still fills up with no hope... any ideas?")
+        } else {
+            npcSay("PAJITNOV",
+                "The simpler shapes help! But the well fills up fast. Any ideas?")
+        }
+
+        let pick2 = chooseIdea("Any more ideas?", [
+            new ChoiceOption("It's good enough", true),
+            new ChoiceOption("Clear completed rows", r2)
+        ])
+
+        if (pick2 == 0) {
             setupRichScene(Art.drawMoscowLab, Art.pajitnov)
             npcSay("PAJITNOV",
                 "The simpler shapes fit together so much better! Spasibo, camel friend!")
             return
         }
 
-        // Survived — C unlocks
+        // Player chose line clearing
+        creativityScore += 1
         setupRichScene(Art.drawMoscowLab, Art.pajitnov)
         npcSay("PAJITNOV",
-            "Better! But the well still fills up with no hope... any ideas?")
-
-        let pickC = chooseIdea("Round 2 cleared! One more idea:", [
-            new ChoiceOption("It seems like a fine puzzle", false, true),
-            new ChoiceOption("Simpler shapes (4 squares)", false, true),
-            new ChoiceOption("Clear completed rows", true, false)
-        ])
-
-        if (pickC == 2) {
-            setupRichScene(Art.drawMoscowLab, Art.pajitnov)
-            npcSay("PAJITNOV",
-                "YES! When you fill a complete row, it disappears!")
-            npcSay("PAJITNOV",
-                "Then if you're good, the game NEVER has to end!")
-            npcSay("PAJITNOV",
-                "You keep going by cleaning the bottom of the well!")
-            npcSay("PAJITNOV",
-                "I cannot stop playing this. I have smoked so many cigarettes today...")
-        }
+            "YES! When you fill a complete row, it disappears!")
+        npcSay("PAJITNOV",
+            "Then if you're good, the game NEVER has to end!")
+        npcSay("PAJITNOV",
+            "You keep going by cleaning the bottom of the well!")
+        npcSay("PAJITNOV",
+            "I cannot stop playing this. I have smoked so many cigarettes today...")
 
         // ── Round 3: Full Tetris ───────────────────────────────
         say(["ROUND 3: Full Tetris! Lines clear, speed increases!"])
         playTetrisRound(3, false)
-        creativityScore += 1
 
         setupRichScene(Art.drawMoscowLab, Art.pajitnov)
         npcSay("PAJITNOV",

@@ -52,22 +52,90 @@ MAKECODE_PALETTE = {
 HEX_CHARS = "0123456789abcdef"
 
 
-def color_distance(c1, c2):
-    """Weighted Euclidean distance in RGB space (human perception weighted)."""
-    dr = c1[0] - c2[0]
-    dg = c1[1] - c2[1]
-    db = c1[2] - c2[2]
-    # Weight green more (human eye is more sensitive to it)
-    return math.sqrt(dr * dr * 0.3 + dg * dg * 0.59 + db * db * 0.11)
+def rgb_to_lab(r, g, b):
+    """Convert RGB (0-255) to CIELAB for perceptually uniform color distance."""
+    # Linearize sRGB
+    def linearize(v):
+        v = v / 255.0
+        return v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4
+
+    rl, gl, bl = linearize(r), linearize(g), linearize(b)
+
+    # RGB to XYZ (D65 illuminant)
+    x = rl * 0.4124564 + gl * 0.3575761 + bl * 0.1804375
+    y = rl * 0.2126729 + gl * 0.7151522 + bl * 0.0721750
+    z = rl * 0.0193339 + gl * 0.1191920 + bl * 0.9503041
+
+    # Normalize to D65 white point
+    x /= 0.95047
+    z /= 1.08883
+
+    # XYZ to Lab
+    def f(t):
+        return t ** (1/3) if t > 0.008856 else 7.787 * t + 16/116
+
+    L = 116 * f(y) - 16
+    a = 500 * (f(x) - f(y))
+    b_val = 200 * (f(y) - f(z))
+    return (L, a, b_val)
+
+
+# Pre-compute Lab values for the palette
+_PALETTE_LAB = {}
+for _idx in range(1, 16):
+    _r, _g, _b = MAKECODE_PALETTE[_idx][:3]
+    _PALETTE_LAB[_idx] = rgb_to_lab(_r, _g, _b)
+
+
+def color_distance_lab(lab1, lab2):
+    """Euclidean distance in CIELAB space (perceptually uniform)."""
+    dL = lab1[0] - lab2[0]
+    da = lab1[1] - lab2[1]
+    db = lab1[2] - lab2[2]
+    return math.sqrt(dL * dL + da * da + db * db)
+
+
+def is_skin_tone(r, g, b):
+    """Detect if an RGB color is in the skin tone range."""
+    # Broad skin tone detection: warm hues, r > g > b, moderate saturation
+    if r < 100:
+        return False
+    if r <= g or g <= b:
+        return False
+    # Check that it's not too saturated (pure red/orange)
+    if r - b > 180 and g < 100:
+        return False
+    # Warmth ratio
+    ratio = (r - b) / (r + 1)
+    return 0.1 < ratio < 0.7
 
 
 def nearest_palette_color(r, g, b):
-    """Find the nearest MakeCode palette index for an RGB color."""
+    """Find the nearest MakeCode palette index using CIELAB distance with skin tone bias."""
+    pixel_lab = rgb_to_lab(r, g, b)
     best_idx = 15  # default to black
     best_dist = float('inf')
+
+    skin = is_skin_tone(r, g, b)
+
     for idx in range(1, 16):  # skip 0 (transparent)
-        pr, pg, pb = MAKECODE_PALETTE[idx]
-        dist = color_distance((r, g, b), (pr, pg, pb))
+        dist = color_distance_lab(pixel_lab, _PALETTE_LAB[idx])
+
+        # Bias skin tones toward cream/tan (13) and brown (14), away from pink (3)
+        if skin:
+            if idx == 13:  # cream/tan — preferred for light skin
+                dist *= 0.7
+            elif idx == 14:  # brown — preferred for darker skin
+                dist *= 0.75
+            elif idx == 4:  # orange — acceptable for warm skin
+                dist *= 0.85
+            elif idx == 1:  # white — acceptable for very light skin
+                dist *= 0.9
+            elif idx == 3:  # pink — penalize for skin
+                dist *= 1.5
+            elif idx == 5:  # yellow — penalize for skin
+                dist *= 1.3
+
         if dist < best_dist:
             best_dist = dist
             best_idx = idx

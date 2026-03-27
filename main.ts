@@ -113,17 +113,14 @@ function openingCutscene(): void {
     let winston = sprites.create(CCTJ.winstonImage(), SpriteKind.Player)
     winston.setPosition(16, 56)
 
-    // Winston walks toward the building
+    // Winston walks toward the building with walk animation
+    let walkFrames = CCTJ.winstonWalkImages()
     for (let i = 0; i < 20; i++) {
+        winston.setImage(walkFrames[i % walkFrames.length])
         winston.x += 3
-        // Bobble walk animation
-        if (i % 2 == 0) {
-            winston.y += 1
-        } else {
-            winston.y -= 1
-        }
-        pause(80)
+        pause(120)
     }
+    winston.setImage(CCTJ.winstonImage())
 
     CCTJ.npcSay("WINSTON",
         "Almost there! I can't wait to see what everyone's making this year!")

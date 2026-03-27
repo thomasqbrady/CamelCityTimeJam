@@ -170,77 +170,71 @@ namespace CCTJ {
         say(["ROUND 1: The prototype. Press A to launch the ball."])
         let r1 = playBreakoutRound(1, true)
 
-        if (!r1) {
-            // Failed — only option A available
-            let pick = chooseIdea("What do you think?", [
-                new ChoiceOption("It's great!", true, false),
-                new ChoiceOption("Add angled bouncing", false, false),
-                new ChoiceOption("Paddle-edge aiming", false, false)
-            ])
-            if (pick == 0) {
-                setupRichScene(Art.drawAtariOffice, Art.bushnell)
-                npcSay("BUSHNELL",
-                    "I think that Jobs kid has a reality distortion field, and you're in it.")
-                npcSay("BUSHNELL",
-                    "Something's missing, if you ask me.")
-            }
+        setupRichScene(Art.drawAtariOffice, Art.bushnell)
+        if (r1) {
+            npcSay("BUSHNELL", "Not bad! You kept it going. So what do you think?")
+        } else {
+            npcSay("BUSHNELL", "Tough, right? So what do you think?")
+        }
+
+        let pick1 = chooseIdea("How would you improve it?", [
+            new ChoiceOption("It's fine as is", true),
+            new ChoiceOption("Add angled bouncing", r1)
+        ])
+
+        if (pick1 == 0) {
+            setupRichScene(Art.drawAtariOffice, Art.bushnell)
+            npcSay("BUSHNELL",
+                "I think that Jobs kid has a reality distortion field, and you're in it.")
+            npcSay("BUSHNELL",
+                "Something's missing, if you ask me. But thanks for trying it!")
             return
         }
 
-        // Survived — B unlocks
+        // Player chose to improve — add angled bouncing
+        creativityScore += 1
         setupRichScene(Art.drawAtariOffice, Art.bushnell)
-        npcSay("BUSHNELL", "Not bad! You kept it going. So what do you think?")
-
-        let pickB = chooseIdea("You survived! Suggest an improvement:", [
-            new ChoiceOption("It's great!", false, true),
-            new ChoiceOption("Add angled bouncing", true, false),
-            new ChoiceOption("Paddle-edge aiming", false, false)
-        ])
-
-        if (pickB == 1) {
-            setupRichScene(Art.drawAtariOffice, Art.bushnell)
-            npcSay("BUSHNELL",
-                "Angles! Reflections! That changes everything!")
-            npcSay("BUSHNELL",
-                "Woz is going to be busy tonight...")
-        }
+        npcSay("BUSHNELL",
+            "Angles! Reflections! That changes everything!")
+        npcSay("BUSHNELL",
+            "Woz is going to be busy tonight...")
 
         // ── Round 2: Angled bounce ─────────────────────────────
         say(["ROUND 2: Now with angles and colored bricks!"])
         let r2 = playBreakoutRound(2, true)
-        creativityScore += 1
 
-        if (!r2) {
+        setupRichScene(Art.drawAtariOffice, Art.bushnell)
+        if (r2) {
+            npcSay("BUSHNELL", "Now THAT feels like a game! Any other ideas?")
+        } else {
+            npcSay("BUSHNELL", "Better! Those angles help. Anything else you'd change?")
+        }
+
+        let pick2 = chooseIdea("Any more ideas?", [
+            new ChoiceOption("It's good now", true),
+            new ChoiceOption("Paddle-edge aiming", r2)
+        ])
+
+        if (pick2 == 0) {
             setupRichScene(Art.drawAtariOffice, Art.bushnell)
             npcSay("BUSHNELL",
-                "Better! Those angles make all the difference. Thanks, camel.")
+                "Those angles make all the difference. Thanks, camel!")
             return
         }
 
-        // Survived — C unlocks
+        // Player chose paddle-edge aiming
+        creativityScore += 1
         setupRichScene(Art.drawAtariOffice, Art.bushnell)
-        npcSay("BUSHNELL", "Now THAT feels like a game! Any other ideas?")
-
-        let pickC = chooseIdea("Round 2 cleared! One more idea:", [
-            new ChoiceOption("It's great!", false, true),
-            new ChoiceOption("Add angled bouncing", false, true),
-            new ChoiceOption("Paddle-edge aiming", true, false)
-        ])
-
-        if (pickC == 2) {
-            setupRichScene(Art.drawAtariOffice, Art.bushnell)
-            npcSay("BUSHNELL",
-                "The angle changes where you HIT the paddle?!")
-            npcSay("BUSHNELL",
-                "Edges go sideways, center goes straight... NOW we're talking TENNIS!")
-            npcSay("BUSHNELL",
-                "I LOVE it!")
-        }
+        npcSay("BUSHNELL",
+            "The angle changes where you HIT the paddle?!")
+        npcSay("BUSHNELL",
+            "Edges go sideways, center goes straight... NOW we're talking TENNIS!")
+        npcSay("BUSHNELL",
+            "I LOVE it!")
 
         // ── Round 3: Full Breakout ─────────────────────────────
         say(["ROUND 3: Full Breakout! Aim with the paddle edges."])
         playBreakoutRound(3, false)
-        creativityScore += 1
 
         setupRichScene(Art.drawAtariOffice, Art.bushnell)
         npcSay("BUSHNELL",

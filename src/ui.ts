@@ -109,12 +109,10 @@ namespace CCTJ {
     export class ChoiceOption {
         label: string
         unlocked: boolean
-        crossed: boolean
 
-        constructor(label: string, unlocked: boolean, crossed: boolean) {
+        constructor(label: string, unlocked: boolean) {
             this.label = label
             this.unlocked = unlocked
-            this.crossed = crossed
         }
     }
 
@@ -128,20 +126,17 @@ namespace CCTJ {
 
         for (let i = 0; i < options.length; i++) {
             let opt = options[i]
-            let y = 24 + i * 28
+            let y = 24 + i * 36
             let color = 1  // white
 
             // Draw selection highlight
             if (selected == i) {
-                bg.fillRect(2, y - 2, 156, 24, 12) // dark purple highlight
+                bg.fillRect(2, y - 2, 156, 30, 12) // dark purple highlight
             }
 
             // Status indicator and color
             let prefix = "  "
-            if (opt.crossed) {
-                prefix = "X "
-                color = 11 // grey — crossed out
-            } else if (!opt.unlocked) {
+            if (!opt.unlocked) {
                 prefix = "? "
                 color = 11 // grey — locked
             } else if (selected == i) {
@@ -151,11 +146,9 @@ namespace CCTJ {
 
             bg.print(prefix + opt.label, 6, y, color)
 
-            // Show lock status below
-            if (!opt.unlocked && !opt.crossed) {
-                bg.print("  (locked)", 6, y + 10, 12)
-            } else if (opt.crossed) {
-                bg.print("  (already suggested)", 6, y + 10, 12)
+            // Show lock hint
+            if (!opt.unlocked) {
+                bg.print("  (survive to unlock)", 6, y + 10, 12)
             }
         }
 
@@ -173,7 +166,7 @@ namespace CCTJ {
         let selected = 0
         // Start on the first selectable option
         for (let i = 0; i < options.length; i++) {
-            if (options[i].unlocked && !options[i].crossed) {
+            if (options[i].unlocked) {
                 selected = i
                 break
             }
@@ -201,7 +194,7 @@ namespace CCTJ {
 
             if (a && !lastA) {
                 let picked = options[selected]
-                if (picked.unlocked && !picked.crossed) {
+                if (picked.unlocked) {
                     return selected
                 }
                 // Feedback for trying to pick a locked/crossed option

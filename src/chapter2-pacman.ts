@@ -211,83 +211,81 @@ namespace CCTJ {
         say(["ROUND 1: Maze prototype. Avoid the ghosts for 10 seconds!"])
         let r1 = playPacRound(1, true)
 
-        if (!r1) {
-            let pick = chooseIdea("What would you change?", [
-                new ChoiceOption("It seems fine to me", true, false),
-                new ChoiceOption("Add big power-up dots", false, false),
-                new ChoiceOption("Give each ghost personality", false, false)
-            ])
-            if (pick == 0) {
-                setupRichScene(Art.drawNamcoOffice, Art.iwatani)
-                npcSay("IWATANI",
-                    "Hm. I thought so too at first. But the ghosts are boring, right?")
-            }
+        setupRichScene(Art.drawNamcoOffice, Art.iwatani)
+        if (r1) {
+            npcSay("IWATANI",
+                "You survived! The ghosts are boring though, aren't they?")
+        } else {
+            npcSay("IWATANI",
+                "Those ghosts are tricky! What do you think?")
+        }
+
+        let pick1 = chooseIdea("How would you improve it?", [
+            new ChoiceOption("It seems fine to me", true),
+            new ChoiceOption("Add big power-up dots", r1)
+        ])
+
+        if (pick1 == 0) {
+            setupRichScene(Art.drawNamcoOffice, Art.iwatani)
+            npcSay("IWATANI",
+                "Hm. I thought so too at first. But the ghosts are boring, right?")
+            npcSay("IWATANI",
+                "Well, thank you for playing, camel-san!")
             return
         }
 
-        // Survived — B unlocks
+        // Player chose to improve — add power pellets
+        creativityScore += 1
         setupRichScene(Art.drawNamcoOffice, Art.iwatani)
         npcSay("IWATANI",
-            "You survived! The ghosts are boring though, aren't they?")
-        npcSay("IWATANI", "What would you do?")
-
-        let pickB = chooseIdea("You survived! Suggest an improvement:", [
-            new ChoiceOption("It seems fine to me", false, true),
-            new ChoiceOption("Add big power-up dots", true, false),
-            new ChoiceOption("Give each ghost personality", false, false)
-        ])
-
-        if (pickB == 1) {
-            setupRichScene(Art.drawNamcoOffice, Art.iwatani)
-            npcSay("IWATANI",
-                "Big dots that let you EAT the ghosts?!")
-            npcSay("IWATANI",
-                "Turn the hunter into the hunted! Brilliant!")
-        }
+            "Big dots that let you EAT the ghosts?!")
+        npcSay("IWATANI",
+            "Turn the hunter into the hunted! Brilliant!")
 
         // ── Round 2: Power pellets ─────────────────────────────
         say(["ROUND 2: Power pellets in the corners! Eat them to fight back!"])
         let r2 = playPacRound(2, true)
-        creativityScore += 1
 
-        if (!r2) {
+        setupRichScene(Art.drawNamcoOffice, Art.iwatani)
+        if (r2) {
+            npcSay("IWATANI",
+                "Much better! But the ghosts still feel the same. Any other ideas?")
+        } else {
+            npcSay("IWATANI",
+                "The power pellets help! But what about the ghosts themselves?")
+        }
+
+        let pick2 = chooseIdea("Any more ideas?", [
+            new ChoiceOption("It's good now", true),
+            new ChoiceOption("Give each ghost personality", r2)
+        ])
+
+        if (pick2 == 0) {
             setupRichScene(Art.drawNamcoOffice, Art.iwatani)
             npcSay("IWATANI",
                 "The power pellets change everything! Thank you, camel-san!")
             return
         }
 
-        // Survived — C unlocks
+        // Player chose ghost personalities
+        creativityScore += 1
         setupRichScene(Art.drawNamcoOffice, Art.iwatani)
         npcSay("IWATANI",
-            "Much better! But the ghosts still feel the same. Any other ideas?")
-
-        let pickC = chooseIdea("Round 2 cleared! One more idea:", [
-            new ChoiceOption("It seems fine to me", false, true),
-            new ChoiceOption("Add big power-up dots", false, true),
-            new ChoiceOption("Give each ghost personality", true, false)
-        ])
-
-        if (pickC == 2) {
-            setupRichScene(Art.drawNamcoOffice, Art.iwatani)
-            npcSay("IWATANI",
-                "Different behaviors! One could chase directly...")
-            npcSay("IWATANI",
-                "One could try to ambush you from ahead...")
-            npcSay("IWATANI",
-                "They'd work as a team without even knowing it!")
-            npcSay("IWATANI",
-                "And DIFFERENT COLORS! My boss insisted they all be the same.")
-            npcSay("IWATANI",
-                "I took a poll: 40 to 0 in favor of different colors.")
-            npcSay("IWATANI",
-                "Make that 41 now!")
-        }
+            "Different behaviors! One could chase directly...")
+        npcSay("IWATANI",
+            "One could try to ambush you from ahead...")
+        npcSay("IWATANI",
+            "They'd work as a team without even knowing it!")
+        npcSay("IWATANI",
+            "And DIFFERENT COLORS! My boss insisted they all be the same.")
+        npcSay("IWATANI",
+            "I took a poll: 40 to 0 in favor of different colors.")
+        npcSay("IWATANI",
+            "Make that 41 now!")
 
         // ── Round 3: Full Pac-Man ──────────────────────────────
         say(["ROUND 3: Colored ghosts with unique AI! Watch their patterns!"])
         playPacRound(3, false)
-        creativityScore += 1
 
         setupRichScene(Art.drawNamcoOffice, Art.iwatani)
         npcSay("IWATANI",
