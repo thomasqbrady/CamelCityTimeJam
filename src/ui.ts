@@ -42,20 +42,27 @@ namespace CCTJ {
   // ── Dialogue helpers ───────────────────────────────────────
 
   /** Show a sequence of dialogue lines (bottom text box). */
+  /** Wait for A button to be released (prevents carry-over presses). */
+  export function debounceA(): void {
+    while (controller.A.isPressed()) { pause(20); }
+  }
+
   export function say(lines: string[]): void {
     for (let line of lines) {
       game.showLongText(line, DialogLayout.Bottom);
     }
+    debounceA();
   }
 
   /** Show a single line of NPC dialogue with their name. */
   export function npcSay(name: string, text: string): void {
     game.showLongText(name + ": " + text, DialogLayout.Bottom);
+    debounceA();
   }
 
   // ── Vortex transition ──────────────────────────────────────
 
-  export function vortexTransition(label: string): void {
+  export function vortexTransition(label: string, skipVortex: boolean = false): void {
     clearAllSprites();
 
     // Flash effect
@@ -71,28 +78,30 @@ namespace CCTJ {
     scene.setBackgroundColor(15); // black
     pause(200);
 
-    // Build spin frames from flipped variants
-    let vBase = Art.vortex;
-    let vFx = vBase.clone();
-    vFx.flipX();
-    let vFxy = vFx.clone();
-    vFxy.flipY();
-    let vFy = vBase.clone();
-    vFy.flipY();
-    let spinFrames = [vBase, vFx, vFxy, vFy];
+    if (!skipVortex) {
+      // Build spin frames from flipped variants
+      let vBase = Art.vortex;
+      let vFx = vBase.clone();
+      vFx.flipX();
+      let vFxy = vFx.clone();
+      vFxy.flipY();
+      let vFy = vBase.clone();
+      vFy.flipY();
+      let spinFrames = [vBase, vFx, vFxy, vFy];
 
-    // Show the vortex sprite briefly, spinning
-    let v = sprites.create(Art.vortex, SpriteKind.Npc);
-    v.setPosition(80, 60);
-    scene.cameraShake(4, 500);
-    let sf = 0;
-    for (let spin = 0; spin < 8; spin++) {
-      v.setImage(spinFrames[sf % 4]);
-      sf++;
-      pause(75);
+      // Show the vortex sprite briefly, spinning
+      let v = sprites.create(Art.vortex, SpriteKind.Npc);
+      v.setPosition(80, 60);
+      scene.cameraShake(4, 500);
+      let sf = 0;
+      for (let spin = 0; spin < 8; spin++) {
+        v.setImage(spinFrames[sf % 4]);
+        sf++;
+        pause(75);
+      }
+      v.destroy(effects.disintegrate, 400);
+      pause(500);
     }
-    v.destroy(effects.disintegrate, 400);
-    pause(500);
 
     // Chapter card
     scene.setBackgroundColor(15);
@@ -242,6 +251,7 @@ namespace CCTJ {
     for (let n = 3; n >= 1; n--) {
       game.splash("" + n);
     }
+    debounceA();
   }
 
   // ── Image helpers ──────────────────────────────────────────

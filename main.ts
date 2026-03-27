@@ -147,11 +147,11 @@ function openingCutscene(): void {
     vortex.setImage(vortexFrames[vFrame % 4]);
     vFrame++;
     scene.setBackgroundColor(10); // purple
-    pause(50);
+    pause(120);
     vortex.setImage(vortexFrames[vFrame % 4]);
     vFrame++;
     scene.setBackgroundColor(8); // blue
-    pause(50);
+    pause(120);
   }
 
   scene.cameraShake(6, 600);
@@ -159,14 +159,14 @@ function openingCutscene(): void {
   for (let i = 0; i < 6; i++) {
     vortex.setImage(vortexFrames[vFrame % 4]);
     vFrame++;
-    pause(80);
+    pause(150);
   }
   winston.destroy(effects.disintegrate, 400);
   // Spin through the destroy
   for (let i = 0; i < 6; i++) {
     vortex.setImage(vortexFrames[vFrame % 4]);
     vFrame++;
-    pause(80);
+    pause(150);
   }
   vortex.destroy(effects.disintegrate, 300);
   pause(400);

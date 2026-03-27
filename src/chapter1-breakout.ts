@@ -45,8 +45,33 @@ namespace CCTJ {
     let bricks = makeBricks(variant >= 2);
     let launched = false;
     let failed = false;
-    let start = game.runtime();
+    let start = 0;
     let lastA = false;
+
+    // Wait for A press before starting the timer
+    while (!launched) {
+      if (controller.left.isPressed()) paddleSprite.x -= 3;
+      if (controller.right.isPressed()) paddleSprite.x += 3;
+      if (paddleSprite.left < 2) paddleSprite.left = 2;
+      if (paddleSprite.right > 158) paddleSprite.right = 158;
+      ballSprite.x = paddleSprite.x;
+
+      let nowA = controller.A.isPressed();
+      if (nowA && !lastA) {
+        launched = true;
+        start = game.runtime();
+        if (variant == 1) {
+          ballSprite.vx = 0;
+          ballSprite.vy = -65;
+        } else {
+          ballSprite.vx = randint(-40, 40);
+          if (Math.abs(ballSprite.vx) < 15) ballSprite.vx = 20;
+          ballSprite.vy = -65;
+        }
+      }
+      lastA = nowA;
+      pause(20);
+    }
 
     while (game.runtime() - start < duration) {
       // Paddle movement
@@ -147,7 +172,7 @@ namespace CCTJ {
   // ── Chapter 1 flow ─────────────────────────────────────────
 
   export function playChapter1(): void {
-    vortexTransition("1975 - CALIFORNIA");
+    vortexTransition("1975 - CALIFORNIA", true);
 
     // Scene: Atari office
     setupRichScene(Art.bg_atari, Art.bushnell);
