@@ -151,7 +151,7 @@ namespace CCTJ {
         vortexTransition("1975 - CALIFORNIA")
 
         // Scene: Atari office
-        setupDialogueScene(14, Art.bushnell) // brown bg — 70s office
+        setupRichScene(Art.drawAtariOffice, Art.bushnell)
 
         npcSay("BUSHNELL",
             "Whoa! Where'd you come from? Are you a talking cam...? Never mind.")
@@ -178,7 +178,7 @@ namespace CCTJ {
                 new ChoiceOption("Paddle-edge aiming", false, false)
             ])
             if (pick == 0) {
-                setupDialogueScene(14, Art.bushnell)
+                setupRichScene(Art.drawAtariOffice, Art.bushnell)
                 npcSay("BUSHNELL",
                     "I think that Jobs kid has a reality distortion field, and you're in it.")
                 npcSay("BUSHNELL",
@@ -188,7 +188,7 @@ namespace CCTJ {
         }
 
         // Survived — B unlocks
-        setupDialogueScene(14, Art.bushnell)
+        setupRichScene(Art.drawAtariOffice, Art.bushnell)
         npcSay("BUSHNELL", "Not bad! You kept it going. So what do you think?")
 
         let pickB = chooseIdea("You survived! Suggest an improvement:", [
@@ -198,7 +198,7 @@ namespace CCTJ {
         ])
 
         if (pickB == 1) {
-            setupDialogueScene(14, Art.bushnell)
+            setupRichScene(Art.drawAtariOffice, Art.bushnell)
             npcSay("BUSHNELL",
                 "Angles! Reflections! That changes everything!")
             npcSay("BUSHNELL",
@@ -211,14 +211,14 @@ namespace CCTJ {
         creativityScore += 1
 
         if (!r2) {
-            setupDialogueScene(14, Art.bushnell)
+            setupRichScene(Art.drawAtariOffice, Art.bushnell)
             npcSay("BUSHNELL",
                 "Better! Those angles make all the difference. Thanks, camel.")
             return
         }
 
         // Survived — C unlocks
-        setupDialogueScene(14, Art.bushnell)
+        setupRichScene(Art.drawAtariOffice, Art.bushnell)
         npcSay("BUSHNELL", "Now THAT feels like a game! Any other ideas?")
 
         let pickC = chooseIdea("Round 2 cleared! One more idea:", [
@@ -228,7 +228,7 @@ namespace CCTJ {
         ])
 
         if (pickC == 2) {
-            setupDialogueScene(14, Art.bushnell)
+            setupRichScene(Art.drawAtariOffice, Art.bushnell)
             npcSay("BUSHNELL",
                 "The angle changes where you HIT the paddle?!")
             npcSay("BUSHNELL",
@@ -242,7 +242,7 @@ namespace CCTJ {
         playBreakoutRound(3, false)
         creativityScore += 1
 
-        setupDialogueScene(14, Art.bushnell)
+        setupRichScene(Art.drawAtariOffice, Art.bushnell)
         npcSay("BUSHNELL",
             "This is going to be huge. Thanks, mysterious camel friend!")
         npcSay("BUSHNELL",

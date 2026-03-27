@@ -8,7 +8,6 @@ namespace CCTJ {
         vortexTransition("RETURNING...")
 
         clearAllSprites()
-        scene.setBackgroundColor(9) // light blue — present day
 
         if (creativityScore <= 2) {
             endingA()
@@ -25,11 +24,16 @@ namespace CCTJ {
     // ── Ending A: "It's Fine" (Score 0–2) ──────────────────────
 
     function endingA(): void {
-        let winston = sprites.create(winstonImage(), SpriteKind.Player)
-        winston.setPosition(80, 70)
+        // Draw present-day scene
+        let bg = image.create(160, 120)
+        Art.drawPresentDay(bg)
+        scene.setBackgroundImage(bg)
 
-        let building = sprites.create(Art.gameJamBuilding, SpriteKind.Npc)
-        building.setPosition(80, 40)
+        let winston = sprites.create(winstonImage(), SpriteKind.Player)
+        winston.setPosition(30, 56)
+
+        let friend = sprites.create(Art.friendNpc, SpriteKind.Npc)
+        friend.setPosition(128, 56)
 
         say([
             "Winston lands back at the game jam. It's 2026.",
@@ -51,11 +55,15 @@ namespace CCTJ {
     // ── Ending B: "Creative Spark" (Score 3–4) ─────────────────
 
     function endingB(): void {
-        let winston = sprites.create(winstonImage(), SpriteKind.Player)
-        winston.setPosition(80, 70)
+        let bg = image.create(160, 120)
+        Art.drawPresentDay(bg)
+        scene.setBackgroundImage(bg)
 
-        let building = sprites.create(Art.gameJamBuilding, SpriteKind.Npc)
-        building.setPosition(80, 40)
+        let winston = sprites.create(winstonImage(), SpriteKind.Player)
+        winston.setPosition(30, 56)
+
+        let friend = sprites.create(Art.friendNpc, SpriteKind.Npc)
+        friend.setPosition(128, 56)
 
         say([
             "Winston lands back at the game jam. It's 2026.",
@@ -81,11 +89,13 @@ namespace CCTJ {
     // ── Ending C: "Visionary" (Score 5–6) ──────────────────────
 
     function endingC(): void {
-        // Something's different...
-        scene.setBackgroundColor(10) // purple — futuristic
+        // Draw futuristic 2030 scene
+        let bg = image.create(160, 120)
+        Art.drawFuturisticScene(bg)
+        scene.setBackgroundImage(bg)
 
         let winston = sprites.create(winstonImage(), SpriteKind.Player)
-        winston.setPosition(80, 70)
+        winston.setPosition(32, 56)
 
         say([
             "Winston tumbles out of the vortex. Something's different.",
@@ -93,19 +103,21 @@ namespace CCTJ {
             "WINSTON: Wait... what year is it?"
         ])
 
-        clearAllSprites()
-        scene.setBackgroundColor(10)
+        let student = sprites.create(Art.jetpackStudent, SpriteKind.Npc)
+        student.setPosition(128, 56)
 
         say([
             "A sign reads: CAMEL CITY GAME JAM 2030",
-            "A student arrives with a jetpack.",
+            "A student lands with a jetpack.",
             "STUDENT: Whoa... did you... WALK here?",
             "STUDENT: Well, hurry up!",
             "STUDENT: It was YOUR idea to do 50-foot holographic Kaiju this year!",
             "STUDENT: We don't have time to waste!"
         ])
 
-        // Fireworks!
+        clearAllSprites()
+
+        // Fireworks on the futuristic backdrop
         effects.confetti.startScreenEffect(2000)
         scene.cameraShake(2, 500)
 

@@ -78,16 +78,29 @@ namespace CCTJ {
         game.splash("TIME WARP", label)
     }
 
-    // ── Simple scene setup ─────────────────────────────────────
+    // ── Scene setup ────────────────────────────────────────────
 
     /** Set up a dialogue scene with a colored background and NPC. */
     export function setupDialogueScene(bgColor: number, npcImage: Image): Sprite {
         clearAllSprites()
         scene.setBackgroundColor(bgColor)
         let npc = sprites.create(npcImage, SpriteKind.Npc)
-        npc.setPosition(40, 60)
+        npc.setPosition(32, 56)
         let winston = sprites.create(winstonImage(), SpriteKind.Player)
-        winston.setPosition(120, 60)
+        winston.setPosition(128, 56)
+        return npc
+    }
+
+    /** Set up a dialogue scene with a painted background. */
+    export function setupRichScene(drawBg: (bg: Image) => void, npcImage: Image): Sprite {
+        clearAllSprites()
+        let bg = image.create(160, 120)
+        drawBg(bg)
+        scene.setBackgroundImage(bg)
+        let npc = sprites.create(npcImage, SpriteKind.Npc)
+        npc.setPosition(32, 56)
+        let winston = sprites.create(winstonImage(), SpriteKind.Player)
+        winston.setPosition(128, 56)
         return npc
     }
 

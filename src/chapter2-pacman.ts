@@ -190,7 +190,7 @@ namespace CCTJ {
         vortexTransition("1979 - TOKYO")
 
         // Scene: Namco office
-        setupDialogueScene(8, Art.iwatani) // blue bg — clean Japanese office
+        setupRichScene(Art.drawNamcoOffice, Art.iwatani) // blue bg — clean Japanese office
 
         npcSay("IWATANI",
             "...Nan desu ka?! How about English?")
@@ -218,7 +218,7 @@ namespace CCTJ {
                 new ChoiceOption("Give each ghost personality", false, false)
             ])
             if (pick == 0) {
-                setupDialogueScene(8, Art.iwatani)
+                setupRichScene(Art.drawNamcoOffice, Art.iwatani)
                 npcSay("IWATANI",
                     "Hm. I thought so too at first. But the ghosts are boring, right?")
             }
@@ -226,7 +226,7 @@ namespace CCTJ {
         }
 
         // Survived — B unlocks
-        setupDialogueScene(8, Art.iwatani)
+        setupRichScene(Art.drawNamcoOffice, Art.iwatani)
         npcSay("IWATANI",
             "You survived! The ghosts are boring though, aren't they?")
         npcSay("IWATANI", "What would you do?")
@@ -238,7 +238,7 @@ namespace CCTJ {
         ])
 
         if (pickB == 1) {
-            setupDialogueScene(8, Art.iwatani)
+            setupRichScene(Art.drawNamcoOffice, Art.iwatani)
             npcSay("IWATANI",
                 "Big dots that let you EAT the ghosts?!")
             npcSay("IWATANI",
@@ -251,14 +251,14 @@ namespace CCTJ {
         creativityScore += 1
 
         if (!r2) {
-            setupDialogueScene(8, Art.iwatani)
+            setupRichScene(Art.drawNamcoOffice, Art.iwatani)
             npcSay("IWATANI",
                 "The power pellets change everything! Thank you, camel-san!")
             return
         }
 
         // Survived — C unlocks
-        setupDialogueScene(8, Art.iwatani)
+        setupRichScene(Art.drawNamcoOffice, Art.iwatani)
         npcSay("IWATANI",
             "Much better! But the ghosts still feel the same. Any other ideas?")
 
@@ -269,7 +269,7 @@ namespace CCTJ {
         ])
 
         if (pickC == 2) {
-            setupDialogueScene(8, Art.iwatani)
+            setupRichScene(Art.drawNamcoOffice, Art.iwatani)
             npcSay("IWATANI",
                 "Different behaviors! One could chase directly...")
             npcSay("IWATANI",
@@ -289,7 +289,7 @@ namespace CCTJ {
         playPacRound(3, false)
         creativityScore += 1
 
-        setupDialogueScene(8, Art.iwatani)
+        setupRichScene(Art.drawNamcoOffice, Art.iwatani)
         npcSay("IWATANI",
             "This is going to bring everyone to the arcade!")
         npcSay("IWATANI",

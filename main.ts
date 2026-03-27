@@ -104,13 +104,14 @@ function drawTitleScreen(): void {
 
 function openingCutscene(): void {
     CCTJ.clearAllSprites()
-    scene.setBackgroundColor(9) // light blue — present day
+
+    // Draw the present-day game jam scene
+    let bg = image.create(160, 120)
+    Art.drawPresentDay(bg)
+    scene.setBackgroundImage(bg)
 
     let winston = sprites.create(CCTJ.winstonImage(), SpriteKind.Player)
-    winston.setPosition(16, 80)
-
-    let building = sprites.create(Art.gameJamBuilding, SpriteKind.Npc)
-    building.setPosition(140, 70)
+    winston.setPosition(16, 56)
 
     // Winston walks toward the building
     for (let i = 0; i < 20; i++) {

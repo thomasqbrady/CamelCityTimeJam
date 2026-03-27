@@ -286,7 +286,7 @@ namespace CCTJ {
         vortexTransition("1984 - MOSCOW")
 
         // Scene: Soviet computing centre
-        setupDialogueScene(11, Art.pajitnov) // grey bg — austere office
+        setupRichScene(Art.drawMoscowLab, Art.pajitnov) // grey bg — austere office
 
         npcSay("PAJITNOV",
             "...Chto?! A camel? In Moscow?")
@@ -314,7 +314,7 @@ namespace CCTJ {
                 new ChoiceOption("Clear completed rows", false, false)
             ])
             if (pick == 0) {
-                setupDialogueScene(11, Art.pajitnov)
+                setupRichScene(Art.drawMoscowLab, Art.pajitnov)
                 npcSay("PAJITNOV",
                     "Maybe you're right. Or maybe I should get back to testing this computer.")
             }
@@ -322,7 +322,7 @@ namespace CCTJ {
         }
 
         // Survived — B unlocks
-        setupDialogueScene(11, Art.pajitnov)
+        setupRichScene(Art.drawMoscowLab, Art.pajitnov)
         npcSay("PAJITNOV",
             "You see? The shapes are too complicated. 12 different pieces, each with 5 squares...")
         npcSay("PAJITNOV", "What would you change?")
@@ -334,7 +334,7 @@ namespace CCTJ {
         ])
 
         if (pickB == 1) {
-            setupDialogueScene(11, Art.pajitnov)
+            setupRichScene(Art.drawMoscowLab, Art.pajitnov)
             npcSay("PAJITNOV",
                 "Four squares each... that would be only... seven shapes!")
             npcSay("PAJITNOV",
@@ -349,14 +349,14 @@ namespace CCTJ {
         creativityScore += 1
 
         if (!r2) {
-            setupDialogueScene(11, Art.pajitnov)
+            setupRichScene(Art.drawMoscowLab, Art.pajitnov)
             npcSay("PAJITNOV",
                 "The simpler shapes fit together so much better! Spasibo, camel friend!")
             return
         }
 
         // Survived — C unlocks
-        setupDialogueScene(11, Art.pajitnov)
+        setupRichScene(Art.drawMoscowLab, Art.pajitnov)
         npcSay("PAJITNOV",
             "Better! But the well still fills up with no hope... any ideas?")
 
@@ -367,7 +367,7 @@ namespace CCTJ {
         ])
 
         if (pickC == 2) {
-            setupDialogueScene(11, Art.pajitnov)
+            setupRichScene(Art.drawMoscowLab, Art.pajitnov)
             npcSay("PAJITNOV",
                 "YES! When you fill a complete row, it disappears!")
             npcSay("PAJITNOV",
@@ -383,7 +383,7 @@ namespace CCTJ {
         playTetrisRound(3, false)
         creativityScore += 1
 
-        setupDialogueScene(11, Art.pajitnov)
+        setupRichScene(Art.drawMoscowLab, Art.pajitnov)
         npcSay("PAJITNOV",
             "This is... this is something special. I can feel it.")
         npcSay("PAJITNOV",
