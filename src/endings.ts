@@ -3,145 +3,147 @@
 // ============================================================
 
 namespace CCTJ {
+  export function endingScene(): void {
+    vortexTransition("back at the GAME JAM...");
 
-    export function endingScene(): void {
-        vortexTransition("RETURNING...")
+    clearAllSprites();
 
-        clearAllSprites()
-
-        if (creativityScore <= 2) {
-            endingA()
-        } else if (creativityScore <= 4) {
-            endingB()
-        } else {
-            endingC()
-        }
-
-        // Credits
-        showCredits()
+    if (creativityScore <= 2) {
+      endingA();
+    } else if (creativityScore <= 4) {
+      endingB();
+    } else {
+      endingC();
     }
 
-    // ── Ending A: "It's Fine" (Score 0–2) ──────────────────────
+    // Credits
+    showCredits();
+  }
 
-    function endingA(): void {
-        // Draw present-day scene
-        scene.setBackgroundImage(Art.bg_gamejam)
+  // ── Ending A: "It's Fine" (Score 0–2) ──────────────────────
 
-        let winston = sprites.create(winstonImage(), SpriteKind.Player)
-        winston.setPosition(30, 56)
+  function endingA(): void {
+    // Draw present-day scene
+    scene.setBackgroundImage(Art.bg_gamejam);
 
-        let friend = sprites.create(Art.friendNpc, SpriteKind.Npc)
-        friend.setPosition(128, 56)
+    let winston = sprites.create(winstonImage(), SpriteKind.Player);
+    winston.setPosition(30, 56);
 
-        say([
-            "Winston lands back at the game jam. It's 2026.",
-            "FRIEND: Hey, Winston! You're just in time. The jam is about to start!",
-            "Winston walks into the building."
-        ])
+    let friend = sprites.create(Art.friendNpc, SpriteKind.Npc);
+    friend.setPosition(128, 56);
 
-        clearAllSprites()
-        scene.setBackgroundColor(15)
+    say([
+      "Winston lands back at the game jam. It's 2026.",
+      "FRIEND: Hey, Winston! You're just in time. The jam is about to start!",
+      "Winston walks into the building.",
+    ]);
 
-        game.showLongText(
-            "Winston made it to the game jam. The games were pretty good.",
-            DialogLayout.Center)
-        game.showLongText(
-            "But what if you'd played a little longer...?",
-            DialogLayout.Center)
-    }
+    clearAllSprites();
+    scene.setBackgroundColor(15);
 
-    // ── Ending B: "Creative Spark" (Score 3–4) ─────────────────
+    game.showLongText(
+      "Winston made it to the game jam. The games were pretty good.",
+      DialogLayout.Center,
+    );
+    game.showLongText(
+      "But what if you'd played a little longer...?",
+      DialogLayout.Center,
+    );
+  }
 
-    function endingB(): void {
-        scene.setBackgroundImage(Art.bg_gamejam)
+  // ── Ending B: "Creative Spark" (Score 3–4) ─────────────────
 
-        let winston = sprites.create(winstonImage(), SpriteKind.Player)
-        winston.setPosition(30, 56)
+  function endingB(): void {
+    scene.setBackgroundImage(Art.bg_gamejam);
 
-        let friend = sprites.create(Art.friendNpc, SpriteKind.Npc)
-        friend.setPosition(128, 56)
+    let winston = sprites.create(winstonImage(), SpriteKind.Player);
+    winston.setPosition(30, 56);
 
-        say([
-            "Winston lands back at the game jam. It's 2026.",
-            "FRIEND: Winston! There you are!",
-            "FRIEND: We came up with some killer ideas while we were waiting...",
-            "Winston's time-travel adventure sparked some serious creativity."
-        ])
+    let friend = sprites.create(Art.friendNpc, SpriteKind.Npc);
+    friend.setPosition(128, 56);
 
-        clearAllSprites()
-        scene.setBackgroundColor(15)
+    say([
+      "Winston lands back at the game jam. It's 2026.",
+      "FRIEND: Winston! There you are!",
+      "FRIEND: We came up with some killer ideas while we were waiting...",
+      "Winston's time-travel adventure sparked some serious creativity.",
+    ]);
 
-        game.showLongText(
-            "Winston pushed a little harder, dug a little deeper to find inspiration.",
-            DialogLayout.Center)
-        game.showLongText(
-            "It's going to pay off at this year's Camel City Game Jam.",
-            DialogLayout.Center)
+    clearAllSprites();
+    scene.setBackgroundColor(15);
 
-        effects.confetti.startScreenEffect(1200)
-        pause(1400)
-    }
+    game.showLongText(
+      "Winston pushed a little harder, dug a little deeper to find inspiration.",
+      DialogLayout.Center,
+    );
+    game.showLongText(
+      "It's going to pay off at this year's Camel City Game Jam.",
+      DialogLayout.Center,
+    );
 
-    // ── Ending C: "Visionary" (Score 5–6) ──────────────────────
+    effects.confetti.startScreenEffect(4800);
+    pause(5600);
+  }
 
-    function endingC(): void {
-        // Draw futuristic 2030 scene
-        scene.setBackgroundImage(Art.bg_futuristic)
+  // ── Ending C: "Visionary" (Score 5–6) ──────────────────────
 
-        let winston = sprites.create(winstonImage(), SpriteKind.Player)
-        winston.setPosition(32, 56)
+  function endingC(): void {
+    // Draw futuristic 2030 scene
+    scene.setBackgroundImage(Art.bg_futuristic);
 
-        say([
-            "Winston tumbles out of the vortex. Something's different.",
-            "The buildings look... futuristic.",
-            "WINSTON: Wait... what year is it?"
-        ])
+    let winston = sprites.create(winstonImage(), SpriteKind.Player);
+    winston.setPosition(32, 56);
 
-        let student = sprites.create(Art.jetpackStudent, SpriteKind.Npc)
-        student.setPosition(128, 56)
+    say([
+      "Winston tumbles out of the vortex. Something's different.",
+      "The buildings look... futuristic.",
+      "WINSTON: Wait... what year is it?",
+    ]);
 
-        say([
-            "A sign reads: CAMEL CITY GAME JAM 2030",
-            "A student lands with a jetpack.",
-            "STUDENT: Whoa... did you... WALK here?",
-            "STUDENT: Well, hurry up!",
-            "STUDENT: It was YOUR idea to do 50-foot holographic Kaiju this year!",
-            "STUDENT: We don't have time to waste!"
-        ])
+    let student = sprites.create(Art.jetpackStudent, SpriteKind.Npc);
+    student.setPosition(128, 56);
 
-        clearAllSprites()
+    say([
+      "A sign reads: CAMEL CITY GAME JAM 2030",
+      "A student lands with a jetpack.",
+      "STUDENT: Whoa... did you... WALK here?",
+      "STUDENT: Well, hurry up!",
+      "STUDENT: It was YOUR idea to do 50-foot holographic Kaiju this year!",
+      "STUDENT: We don't have time to waste!",
+    ]);
 
-        // Fireworks on the futuristic backdrop
-        effects.confetti.startScreenEffect(2000)
-        scene.cameraShake(2, 500)
+    clearAllSprites();
 
-        game.showLongText(
-            "The future of games is in YOUR hands.",
-            DialogLayout.Center)
-        game.showLongText(
-            "Now go make something amazing.",
-            DialogLayout.Center)
+    // Fireworks on the futuristic backdrop
+    effects.confetti.startScreenEffect(8000);
+    scene.cameraShake(2, 500);
 
-        pause(1000)
-    }
+    game.showLongText(
+      "The future of games is in YOUR hands.",
+      DialogLayout.Center,
+    );
+    game.showLongText("Now go make something amazing.", DialogLayout.Center);
 
-    // ── Credits ────────────────────────────────────────────────
+    pause(4000);
+  }
 
-    function showCredits(): void {
-        clearAllSprites()
-        scene.setBackgroundColor(15)
+  // ── Credits ────────────────────────────────────────────────
 
-        // Show creativity score
-        game.splash("Creativity Score", "" + creativityScore + " / 6")
+  function showCredits(): void {
+    clearAllSprites();
+    scene.setBackgroundColor(15);
 
-        // Credits text
-        say([
-            "CAMEL CITY TIME JAM",
-            "Created for the Camel City Game Jam -- Winston-Salem, NC",
-            "Sponsored by Martes Delta Co, LLC",
-            "Made with love on the Adafruit PyGamer",
-            "The history of games is the history of people with bold ideas.",
-            "Now it's your turn."
-        ])
-    }
+    // Show creativity score
+    game.splash("Creativity Score", "" + creativityScore + " / 6");
+
+    // Credits text
+    say([
+      "CAMEL CITY TIME JAM",
+      "Created for the Camel City Game Jam -- Winston-Salem, NC",
+      "Sponsored by Martes Delta Co, LLC",
+      "Made with love on the Adafruit PyGamer",
+      "The history of games is the history of people with bold ideas.",
+      "Now it's your turn.",
+    ]);
+  }
 }

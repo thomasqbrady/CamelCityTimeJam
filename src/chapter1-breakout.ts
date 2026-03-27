@@ -271,10 +271,14 @@ namespace CCTJ {
     // Player chose paddle-edge aiming
     creativityScore += 1;
     setupRichScene(Art.bg_atari, Art.bushnell);
-    npcSay("BUSHNELL", "The angle changes where you HIT the paddle?!");
     npcSay(
       "BUSHNELL",
-      "Edges go sideways, center goes straight... NOW we're talking TENNIS!",
+      "Hmm, like the angle of the bounce depends on what part of the paddle you hit it with?",
+    );
+    npcSay("BUSHNELL", "OOH! And it could bounce back faster or slower too!");
+    npcSay(
+      "BUSHNELL",
+      "Edges go sideways, fast, center goes straight and a bit slower... NOW we're talking TENNIS!",
     );
     npcSay("BUSHNELL", "I LOVE it!");
 
@@ -287,6 +291,9 @@ namespace CCTJ {
       "BUSHNELL",
       "This is going to be huge. Thanks, mysterious camel friend!",
     );
-    npcSay("BUSHNELL", "I'm calling it... Breakout.");
+    npcSay(
+      "BUSHNELL",
+      "This is going to be a breakout hit! Say... that's not a bad name...",
+    );
   }
 }

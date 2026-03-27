@@ -64,9 +64,7 @@ namespace CCTJ {
   // ── Vortex transition ──────────────────────────────────────
 
   export function vortexTransition(label: string, skipVortex: boolean = false): void {
-    clearAllSprites();
-
-    // Flash effect
+    // Flash effect — previous scene sprites stay visible
     for (let i = 0; i < 6; i++) {
       scene.setBackgroundColor(10); // purple
       pause(60);
@@ -76,6 +74,8 @@ namespace CCTJ {
       pause(40);
     }
 
+    // Clear sprites after flash, before black screen
+    clearAllSprites();
     scene.setBackgroundColor(15); // black
     pause(200);
 
@@ -226,10 +226,10 @@ namespace CCTJ {
     clearAllSprites();
     scene.setBackgroundImage(image.create(160, 120));
 
-    // Add a default placeholder option at the end; cursor starts here
+    // Add a default placeholder at the top; cursor starts here
     let placeholder = new ChoiceOption("Choose an answer...", false);
-    options.push(placeholder);
-    let selected = options.length - 1;
+    options.insertAt(0, placeholder);
+    let selected = 0;
 
     let lastUp = controller.up.isPressed();
     let lastDown = controller.down.isPressed();
@@ -254,9 +254,9 @@ namespace CCTJ {
       if (a && !lastA) {
         let picked = options[selected];
         if (picked.unlocked) {
-          // Remove placeholder before returning
-          options.pop();
-          return selected;
+          // Remove placeholder and adjust index before returning
+          options.removeAt(0);
+          return selected - 1;
         }
         // No feedback needed — just don't do anything
       }
