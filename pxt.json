@@ -1,15 +1,18 @@
 {
-  "name": "camel-city-time-jam",
-  "description": "Camel City Time Jam prototype for MakeCode Arcade / PyGamer",
-  "dependencies": {
-    "device": "*"
-  },
-  "files": [
-    "main.ts",
-    "src/state.ts",
-    "src/ui.ts",
-    "src/minigames.ts",
-    "src/chapters.ts"
-  ],
-  "preferredEditor": "tsprj"
+    "name": "camel-city-time-jam",
+    "description": "Camel City Time Jam — A time-travel game for the Adafruit PyGamer",
+    "dependencies": {
+        "device": "*"
+    },
+    "files": [
+        "main.ts",
+        "src/images.ts",
+        "src/state.ts",
+        "src/ui.ts",
+        "src/chapter1-breakout.ts",
+        "src/chapter2-pacman.ts",
+        "src/chapter3-tetris.ts",
+        "src/endings.ts"
+    ],
+    "preferredEditor": "tsprj"
 }

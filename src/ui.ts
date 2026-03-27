@@ -1,3 +1,9 @@
+// ============================================================
+// CAMEL CITY TIME JAM — UI Helpers
+// ============================================================
+// Dialogue, choice menus, transitions, and sprite management.
+// ============================================================
+
 namespace SpriteKind {
     export const Paddle = SpriteKind.create()
     export const Ball = SpriteKind.create()
@@ -5,108 +11,166 @@ namespace SpriteKind {
     export const Ghost = SpriteKind.create()
     export const Pellet = SpriteKind.create()
     export const Npc = SpriteKind.create()
-    export const Wall = SpriteKind.create()
+    export const Dot = SpriteKind.create()
 }
 
 namespace CCTJ {
-    export class ChoiceOption {
-        label: string
-        unlocked: boolean
-        crossed: boolean
-        note: string
 
-        constructor(label: string, unlocked: boolean, crossed: boolean, note: string) {
-            this.label = label
-            this.unlocked = unlocked
-            this.crossed = crossed
-            this.note = note
-        }
-    }
+    // ── Sprite cleanup ─────────────────────────────────────────
 
-    export function clearAllSprites() {
-        let kinds = [
-            SpriteKind.Player,
-            SpriteKind.Paddle,
-            SpriteKind.Ball,
-            SpriteKind.Brick,
-            SpriteKind.Ghost,
-            SpriteKind.Pellet,
-            SpriteKind.Npc,
-            SpriteKind.Wall,
-            SpriteKind.Projectile,
-            SpriteKind.Food,
-            SpriteKind.Enemy
-        ]
-        for (let kind of kinds) {
+    const allKinds = [
+        SpriteKind.Player, SpriteKind.Paddle, SpriteKind.Ball,
+        SpriteKind.Brick, SpriteKind.Ghost, SpriteKind.Pellet,
+        SpriteKind.Npc, SpriteKind.Dot, SpriteKind.Projectile,
+        SpriteKind.Food, SpriteKind.Enemy
+    ]
+
+    export function clearAllSprites(): void {
+        for (let kind of allKinds) {
             for (let s of sprites.allOfKind(kind)) {
                 s.destroy()
             }
         }
     }
 
-    export function flashTransition(label: string) {
-        clearAllSprites()
-        scene.setBackgroundColor(1)
-        game.splash("VORTEX", label)
-        for (let i = 0; i < 4; i++) {
-            scene.setBackgroundColor(15)
-            pause(80)
-            scene.setBackgroundColor(1)
-            pause(80)
-        }
-        scene.cameraShake(4, 400)
-    }
+    // ── Dialogue helpers ───────────────────────────────────────
 
-    export function showLines(lines: string[]) {
+    /** Show a sequence of dialogue lines (bottom text box). */
+    export function say(lines: string[]): void {
         for (let line of lines) {
             game.showLongText(line, DialogLayout.Bottom)
         }
     }
 
-    function drawChoiceMenu(title: string, prompt: string, options: ChoiceOption[], selected: number) {
+    /** Show a single line of NPC dialogue with their name. */
+    export function npcSay(name: string, text: string): void {
+        game.showLongText(name + ": " + text, DialogLayout.Bottom)
+    }
+
+    // ── Vortex transition ──────────────────────────────────────
+
+    export function vortexTransition(label: string): void {
+        clearAllSprites()
+
+        // Flash effect
+        for (let i = 0; i < 6; i++) {
+            scene.setBackgroundColor(10) // purple
+            pause(60)
+            scene.setBackgroundColor(8)  // blue
+            pause(60)
+            scene.setBackgroundColor(9)  // light blue
+            pause(40)
+        }
+
+        scene.setBackgroundColor(15) // black
+        pause(200)
+
+        // Show the vortex sprite briefly
+        let v = sprites.create(Art.vortex, SpriteKind.Npc)
+        v.setPosition(80, 60)
+        scene.cameraShake(4, 500)
+        pause(600)
+        v.destroy(effects.disintegrate, 400)
+        pause(500)
+
+        // Chapter card
+        scene.setBackgroundColor(15)
+        game.splash("TIME WARP", label)
+    }
+
+    // ── Simple scene setup ─────────────────────────────────────
+
+    /** Set up a dialogue scene with a colored background and NPC. */
+    export function setupDialogueScene(bgColor: number, npcImage: Image): Sprite {
+        clearAllSprites()
+        scene.setBackgroundColor(bgColor)
+        let npc = sprites.create(npcImage, SpriteKind.Npc)
+        npc.setPosition(40, 60)
+        let winston = sprites.create(winstonImage(), SpriteKind.Player)
+        winston.setPosition(120, 60)
+        return npc
+    }
+
+    // ── Choice menu system ─────────────────────────────────────
+
+    export class ChoiceOption {
+        label: string
+        unlocked: boolean
+        crossed: boolean
+
+        constructor(label: string, unlocked: boolean, crossed: boolean) {
+            this.label = label
+            this.unlocked = unlocked
+            this.crossed = crossed
+        }
+    }
+
+    function drawChoiceMenu(prompt: string, options: ChoiceOption[], selected: number): void {
         let bg = scene.backgroundImage()
-        bg.fill(1)
-        bg.print(title, 8, 4, 15)
-        bg.drawLine(8, 14, 152, 14, 15)
-        bg.print(prompt, 8, 20, 9)
+        bg.fill(15) // black background
+
+        // Prompt text
+        bg.print(prompt, 4, 4, 1)
+        bg.drawLine(4, 14, 156, 14, 12)
 
         for (let i = 0; i < options.length; i++) {
-            let option = options[i]
-            let y = 42 + i * 22
-            let marker = selected == i ? ">" : " "
-            let status = "[ ]"
-            let color = 15
+            let opt = options[i]
+            let y = 24 + i * 28
+            let color = 1  // white
 
-            if (option.crossed) {
-                status = "[X]"
-                color = 6
-            } else if (!option.unlocked) {
-                status = "[L]"
-                color = 5
-            }
-
+            // Draw selection highlight
             if (selected == i) {
-                bg.fillRect(4, y - 2, 152, 18, 3)
+                bg.fillRect(2, y - 2, 156, 24, 12) // dark purple highlight
             }
 
-            bg.print(marker + " " + status + " " + option.label, 8, y, color)
-            if (option.note.length > 0) {
-                bg.print(option.note, 8, y + 9, 13)
+            // Status indicator and color
+            let prefix = "  "
+            if (opt.crossed) {
+                prefix = "X "
+                color = 11 // grey — crossed out
+            } else if (!opt.unlocked) {
+                prefix = "? "
+                color = 11 // grey — locked
+            } else if (selected == i) {
+                prefix = "> "
+                color = 5  // yellow — selected and available
+            }
+
+            bg.print(prefix + opt.label, 6, y, color)
+
+            // Show lock status below
+            if (!opt.unlocked && !opt.crossed) {
+                bg.print("  (locked)", 6, y + 10, 12)
+            } else if (opt.crossed) {
+                bg.print("  (already suggested)", 6, y + 10, 12)
             }
         }
 
-        bg.print("UP/DOWN move  A select", 8, 112, 12)
+        bg.print("D-pad:move  A:select", 4, 110, 11)
     }
 
-    export function chooseIdea(title: string, prompt: string, options: ChoiceOption[]): number {
+    /**
+     * Show the A/B/C choice menu. Returns the index of the chosen option.
+     * Only unlocked, non-crossed options can be selected.
+     */
+    export function chooseIdea(prompt: string, options: ChoiceOption[]): number {
+        clearAllSprites()
         scene.setBackgroundImage(image.create(160, 120))
 
         let selected = 0
+        // Start on the first selectable option
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].unlocked && !options[i].crossed) {
+                selected = i
+                break
+            }
+        }
+
         let lastUp = false
         let lastDown = false
         let lastA = false
 
-        drawChoiceMenu(title, prompt, options, selected)
+        drawChoiceMenu(prompt, options, selected)
 
         while (true) {
             let up = controller.up.isPressed()
@@ -115,22 +179,21 @@ namespace CCTJ {
 
             if (up && !lastUp) {
                 selected = (selected + options.length - 1) % options.length
-                drawChoiceMenu(title, prompt, options, selected)
+                drawChoiceMenu(prompt, options, selected)
             }
-
             if (down && !lastDown) {
                 selected = (selected + 1) % options.length
-                drawChoiceMenu(title, prompt, options, selected)
+                drawChoiceMenu(prompt, options, selected)
             }
 
             if (a && !lastA) {
                 let picked = options[selected]
                 if (picked.unlocked && !picked.crossed) {
-                    clearAllSprites()
                     return selected
                 }
-                game.showLongText("That idea is locked right now.", DialogLayout.Bottom)
-                drawChoiceMenu(title, prompt, options, selected)
+                // Feedback for trying to pick a locked/crossed option
+                game.showLongText("That option isn't available right now.", DialogLayout.Bottom)
+                drawChoiceMenu(prompt, options, selected)
             }
 
             lastUp = up
@@ -138,97 +201,23 @@ namespace CCTJ {
             lastA = a
             pause(20)
         }
-
         return 0
     }
 
-    export function openingScene() {
-        clearAllSprites()
-        scene.setBackgroundColor(9)
-        game.splash("CAMEL CITY", "TIME JAM")
-        game.showLongText("A Martes Delta Co production for Camel City Game Jam", DialogLayout.Bottom)
+    // ── Mini-game countdown ────────────────────────────────────
 
-        let winston = sprites.create(img`
-            ....666666......
-            ...67777776.....
-            ..6777777776....
-            ..67776677776...
-            ..67777777776...
-            ...6777777776...
-            ....66666666....
-            ...666....666...
-            ..666......666..
-            ..66........66..
-            ..66........66..
-            ..66........66..
-            ..66........66..
-            ...6........6...
-            ................
-            ................
-        `, SpriteKind.Player)
-
-        let jam = sprites.create(img`
-            2222222222222222
-            2..............2
-            2.....4444.....2
-            2....444444....2
-            2....444444....2
-            2.....4444.....2
-            2..............2
-            2222222222222222
-        `, SpriteKind.Npc)
-
-        winston.setPosition(18, 88)
-        jam.setPosition(135, 88)
-
-        for (let i = 0; i < 24; i++) {
-            winston.x += 3
-            if (i % 2 == 0) {
-                winston.y += 1
-            } else {
-                winston.y -= 1
-            }
-            pause(90)
+    export function countdown(): void {
+        for (let n = 3; n >= 1; n--) {
+            game.splash("" + n)
         }
-
-        showLines([
-            "WINSTON: Almost there! I can't wait to see what everyone is making!",
-            "A swirling vortex appears!"
-        ])
-
-        for (let i = 0; i < 5; i++) {
-            scene.setBackgroundColor(7)
-            pause(70)
-            scene.setBackgroundColor(9)
-            pause(70)
-        }
-
-        winston.destroy(effects.disintegrate, 400)
-        pause(450)
     }
 
-    export function endingScene() {
-        flashTransition("RETURN")
-        if (creativityScore <= 2) {
-            showLines([
-                "Ending A (0-2): It is 2026. The jam starts now.",
-                "The games were pretty good.",
-                "But what if you had pushed a little farther?"
-            ])
-        } else if (creativityScore <= 4) {
-            showLines([
-                "Ending B (3-4): It is 2026. Ideas are sparking.",
-                "Your influence helped the team level up."
-            ])
-        } else {
-            showLines([
-                "Ending C (5-6): A sign reads CAMEL CITY GAME JAM 2030.",
-                "The future of games is in your hands."
-            ])
-            effects.confetti.startScreenEffect(1600)
-        }
+    // ── Clamp helper ───────────────────────────────────────────
 
-        game.splash("Creativity Score", "" + creativityScore + " / 6")
-        game.showLongText("Thanks for playing Camel City Time Jam prototype.", DialogLayout.Bottom)
+    export function clampVelocity(s: Sprite, max: number): void {
+        if (s.vx > max) s.vx = max
+        if (s.vx < -max) s.vx = -max
+        if (s.vy > max) s.vy = max
+        if (s.vy < -max) s.vy = -max
     }
 }
