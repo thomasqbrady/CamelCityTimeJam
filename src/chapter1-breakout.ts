@@ -151,7 +151,7 @@ namespace CCTJ {
         vortexTransition("1975 - CALIFORNIA")
 
         // Scene: Atari office
-        setupRichScene(Art.drawAtariOffice, Art.bushnell)
+        setupRichScene(Art.bg_atari, Art.bushnell)
 
         npcSay("BUSHNELL",
             "Whoa! Where'd you come from? Are you a talking cam...? Never mind.")
@@ -170,7 +170,7 @@ namespace CCTJ {
         say(["ROUND 1: The prototype. Press A to launch the ball."])
         let r1 = playBreakoutRound(1, true)
 
-        setupRichScene(Art.drawAtariOffice, Art.bushnell)
+        setupRichScene(Art.bg_atari, Art.bushnell)
         if (r1) {
             npcSay("BUSHNELL", "Not bad! You kept it going. So what do you think?")
         } else {
@@ -183,7 +183,7 @@ namespace CCTJ {
         ])
 
         if (pick1 == 0) {
-            setupRichScene(Art.drawAtariOffice, Art.bushnell)
+            setupRichScene(Art.bg_atari, Art.bushnell)
             npcSay("BUSHNELL",
                 "I think that Jobs kid has a reality distortion field, and you're in it.")
             npcSay("BUSHNELL",
@@ -193,7 +193,7 @@ namespace CCTJ {
 
         // Player chose to improve — add angled bouncing
         creativityScore += 1
-        setupRichScene(Art.drawAtariOffice, Art.bushnell)
+        setupRichScene(Art.bg_atari, Art.bushnell)
         npcSay("BUSHNELL",
             "Angles! Reflections! That changes everything!")
         npcSay("BUSHNELL",
@@ -203,7 +203,7 @@ namespace CCTJ {
         say(["ROUND 2: Now with angles and colored bricks!"])
         let r2 = playBreakoutRound(2, true)
 
-        setupRichScene(Art.drawAtariOffice, Art.bushnell)
+        setupRichScene(Art.bg_atari, Art.bushnell)
         if (r2) {
             npcSay("BUSHNELL", "Now THAT feels like a game! Any other ideas?")
         } else {
@@ -216,7 +216,7 @@ namespace CCTJ {
         ])
 
         if (pick2 == 0) {
-            setupRichScene(Art.drawAtariOffice, Art.bushnell)
+            setupRichScene(Art.bg_atari, Art.bushnell)
             npcSay("BUSHNELL",
                 "Those angles make all the difference. Thanks, camel!")
             return
@@ -224,7 +224,7 @@ namespace CCTJ {
 
         // Player chose paddle-edge aiming
         creativityScore += 1
-        setupRichScene(Art.drawAtariOffice, Art.bushnell)
+        setupRichScene(Art.bg_atari, Art.bushnell)
         npcSay("BUSHNELL",
             "The angle changes where you HIT the paddle?!")
         npcSay("BUSHNELL",
@@ -236,7 +236,7 @@ namespace CCTJ {
         say(["ROUND 3: Full Breakout! Aim with the paddle edges."])
         playBreakoutRound(3, false)
 
-        setupRichScene(Art.drawAtariOffice, Art.bushnell)
+        setupRichScene(Art.bg_atari, Art.bushnell)
         npcSay("BUSHNELL",
             "This is going to be huge. Thanks, mysterious camel friend!")
         npcSay("BUSHNELL",

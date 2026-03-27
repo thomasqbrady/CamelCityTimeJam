@@ -91,12 +91,10 @@ namespace CCTJ {
         return npc
     }
 
-    /** Set up a dialogue scene with a painted background. */
-    export function setupRichScene(drawBg: (bg: Image) => void, npcImage: Image): Sprite {
+    /** Set up a dialogue scene with a pre-rendered background image. */
+    export function setupRichScene(bgImage: Image, npcImage: Image): Sprite {
         clearAllSprites()
-        let bg = image.create(160, 120)
-        drawBg(bg)
-        scene.setBackgroundImage(bg)
+        scene.setBackgroundImage(bgImage)
         let npc = sprites.create(npcImage, SpriteKind.Npc)
         npc.setPosition(32, 56)
         let winston = sprites.create(winstonImage(), SpriteKind.Player)

@@ -25,9 +25,7 @@ namespace CCTJ {
 
     function endingA(): void {
         // Draw present-day scene
-        let bg = image.create(160, 120)
-        Art.drawPresentDay(bg)
-        scene.setBackgroundImage(bg)
+        scene.setBackgroundImage(Art.bg_gamejam)
 
         let winston = sprites.create(winstonImage(), SpriteKind.Player)
         winston.setPosition(30, 56)
@@ -55,9 +53,7 @@ namespace CCTJ {
     // ── Ending B: "Creative Spark" (Score 3–4) ─────────────────
 
     function endingB(): void {
-        let bg = image.create(160, 120)
-        Art.drawPresentDay(bg)
-        scene.setBackgroundImage(bg)
+        scene.setBackgroundImage(Art.bg_gamejam)
 
         let winston = sprites.create(winstonImage(), SpriteKind.Player)
         winston.setPosition(30, 56)
@@ -90,9 +86,7 @@ namespace CCTJ {
 
     function endingC(): void {
         // Draw futuristic 2030 scene
-        let bg = image.create(160, 120)
-        Art.drawFuturisticScene(bg)
-        scene.setBackgroundImage(bg)
+        scene.setBackgroundImage(Art.bg_futuristic)
 
         let winston = sprites.create(winstonImage(), SpriteKind.Player)
         winston.setPosition(32, 56)
