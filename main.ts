@@ -105,8 +105,8 @@ function drawTitleScreen(): void {
 function openingCutscene(): void {
     CCTJ.clearAllSprites()
 
-    // Draw the present-day game jam scene — fill transparent holes
-    scene.setBackgroundImage(CCTJ.fillTransparent(Art.bg_gamejam))
+    // Draw the present-day game jam scene
+    scene.setBackgroundImage(Art.bg_gamejam)
 
     let winston = sprites.create(CCTJ.winstonImage(), SpriteKind.Player)
     winston.setPosition(16, 56)
