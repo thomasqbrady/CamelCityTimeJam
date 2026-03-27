@@ -33,7 +33,6 @@ namespace CCTJ {
    */
   function playBreakoutRound(variant: number, gated: boolean, duration: number = 10000): boolean {
     clearAllSprites();
-    scene.setBackgroundImage(null);
     scene.setBackgroundColor(15); // black — arcade feel
 
     let paddleSprite = sprites.create(Art.paddle, SpriteKind.Paddle);
@@ -207,7 +206,7 @@ namespace CCTJ {
     creativityScore += 1;
     setupRichScene(Art.bg_atari, Art.bushnell);
     npcSay("BUSHNELL", "Angles! Reflections! That changes everything!");
-    npcSay("BUSHNELL", "Woz is going to be busy tonight...");
+    npcSay("BUSHNELL", "Woz will love it... he'll be up all night!");
 
     // ── Round 2: Angled bounce ─────────────────────────────
     say(["ROUND 2: Now with angles and colored bricks!"]);
@@ -232,7 +231,7 @@ namespace CCTJ {
       setupRichScene(Art.bg_atari, Art.bushnell);
       npcSay(
         "BUSHNELL",
-        "Those angles make all the difference. Thanks, camel!",
+        "Those angles make all the difference. Thanks, uh, what did you say your name was?",
       );
       return;
     }
