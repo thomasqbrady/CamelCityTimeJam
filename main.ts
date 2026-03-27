@@ -12,12 +12,12 @@ function waitForStartWithKonami(): void {
   // 1=up, 2=down, 3=left, 4=right, 5=B, 6=A
   let konamiPos = 0;
 
-  let lastUp = false;
-  let lastDown = false;
-  let lastLeft = false;
-  let lastRight = false;
-  let lastA = false;
-  let lastB = false;
+  let lastUp = controller.up.isPressed();
+  let lastDown = controller.down.isPressed();
+  let lastLeft = controller.left.isPressed();
+  let lastRight = controller.right.isPressed();
+  let lastA = controller.A.isPressed();
+  let lastB = controller.B.isPressed();
 
   while (true) {
     let up = controller.up.isPressed();

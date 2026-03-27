@@ -46,7 +46,7 @@ namespace CCTJ {
     let launched = false;
     let failed = false;
     let start = 0;
-    let lastA = false;
+    let lastA = controller.A.isPressed();
 
     // Wait for A press before starting the timer
     while (!launched) {

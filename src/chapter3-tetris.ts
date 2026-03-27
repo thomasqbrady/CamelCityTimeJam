@@ -202,10 +202,10 @@ namespace CCTJ {
         let failed = false
         let start = game.runtime()
 
-        let lastLeft = false
-        let lastRight = false
-        let lastDown = false
-        let lastA = false
+        let lastLeft = controller.left.isPressed()
+        let lastRight = controller.right.isPressed()
+        let lastDown = controller.down.isPressed()
+        let lastA = controller.A.isPressed()
 
         if (!canPlace(board, active, px, py, w, h)) {
             failed = true

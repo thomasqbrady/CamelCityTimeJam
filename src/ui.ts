@@ -42,10 +42,11 @@ namespace CCTJ {
   // ── Dialogue helpers ───────────────────────────────────────
 
   /** Show a sequence of dialogue lines (bottom text box). */
-  /** Wait for A button to be released (prevents carry-over presses). */
+  /** Wait for A button to be released (prevents carry-over into next interaction). */
   export function debounceA(): void {
     while (controller.A.isPressed()) { pause(20); }
   }
+
 
   export function say(lines: string[]): void {
     for (let line of lines) {
@@ -204,9 +205,9 @@ namespace CCTJ {
       }
     }
 
-    let lastUp = false;
-    let lastDown = false;
-    let lastA = false;
+    let lastUp = controller.up.isPressed();
+    let lastDown = controller.down.isPressed();
+    let lastA = controller.A.isPressed();
 
     drawChoiceMenu(prompt, options, selected);
 
