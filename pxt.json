@@ -14,5 +14,12 @@
         "src/chapter3-tetris.ts",
         "src/endings.ts"
     ],
+    "targetVersions": {
+        "target": "4.0.12",
+        "targetId": "arcade"
+    },
+    "supportedTargets": [
+        "arcade"
+    ],
     "preferredEditor": "tsprj"
 }
