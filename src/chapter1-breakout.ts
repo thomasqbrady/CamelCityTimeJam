@@ -31,7 +31,11 @@ namespace CCTJ {
    * variant 3: paddle-edge deflection, full breakout
    * Returns true if player survived 10 seconds.
    */
-  function playBreakoutRound(variant: number, gated: boolean, duration: number = 10000): boolean {
+  function playBreakoutRound(
+    variant: number,
+    gated: boolean,
+    duration: number = 10000,
+  ): boolean {
     clearAllSprites();
     scene.setBackgroundColor(15); // black — arcade feel
 
@@ -248,8 +252,11 @@ namespace CCTJ {
     }
 
     let pick2 = chooseIdea("Any more ideas?", [
-      new ChoiceOption("It's good now", true),
-      new ChoiceOption("Paddle-edge aiming", r2),
+      new ChoiceOption("Publish it!", true),
+      new ChoiceOption(
+        "What if the ball bounced differently at the edges of the paddle?",
+        r2,
+      ),
     ]);
 
     if (pick2 == 0) {

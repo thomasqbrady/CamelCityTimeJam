@@ -145,6 +145,25 @@ namespace CCTJ {
     }
   }
 
+  /** Word-wrap text to fit within a max character width. */
+  function wordWrap(text: string, maxChars: number): string[] {
+    let words = text.split(" ");
+    let lines: string[] = [];
+    let line = "";
+    for (let word of words) {
+      if (line.length == 0) {
+        line = word;
+      } else if (line.length + 1 + word.length <= maxChars) {
+        line = line + " " + word;
+      } else {
+        lines.push(line);
+        line = word;
+      }
+    }
+    if (line.length > 0) lines.push(line);
+    return lines;
+  }
+
   function drawChoiceMenu(
     prompt: string,
     options: ChoiceOption[],
@@ -157,15 +176,10 @@ namespace CCTJ {
     bg.print(prompt, 4, 4, 1);
     bg.drawLine(4, 14, 156, 14, 12);
 
+    let y = 24;
     for (let i = 0; i < options.length; i++) {
       let opt = options[i];
-      let y = 24 + i * 36;
       let color = 1; // white
-
-      // Draw selection highlight
-      if (selected == i) {
-        bg.fillRect(2, y - 2, 156, 30, 12); // dark purple highlight
-      }
 
       // Status indicator and color
       let prefix = "  ";
@@ -177,12 +191,28 @@ namespace CCTJ {
         color = 5; // yellow — selected and available
       }
 
-      bg.print(prefix + opt.label, 6, y, color);
+      // Word-wrap the label (24 chars max with prefix and margins)
+      let wrappedLines = wordWrap(opt.label, 22);
+      let blockHeight = wrappedLines.length * 10 + 4;
+
+      // Draw selection highlight
+      if (selected == i) {
+        bg.fillRect(2, y - 2, 156, blockHeight, 12); // dark purple highlight
+      }
+
+      // Draw wrapped text
+      for (let li = 0; li < wrappedLines.length; li++) {
+        let linePrefix = li == 0 ? prefix : "  ";
+        bg.print(linePrefix + wrappedLines[li], 6, y + li * 10, color);
+      }
 
       // Show lock hint
       if (!opt.unlocked) {
-        bg.print("  (survive to unlock)", 6, y + 10, 12);
+        bg.print("  (survive to unlock)", 6, y + wrappedLines.length * 10, 12);
+        blockHeight += 10;
       }
+
+      y += blockHeight + 4;
     }
 
     bg.print("D-pad:move  A:select", 4, 110, 11);
@@ -196,14 +226,10 @@ namespace CCTJ {
     clearAllSprites();
     scene.setBackgroundImage(image.create(160, 120));
 
-    let selected = 0;
-    // Start on the first selectable option
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].unlocked) {
-        selected = i;
-        break;
-      }
-    }
+    // Add a default placeholder option at the end; cursor starts here
+    let placeholder = new ChoiceOption("Choose an answer...", false);
+    options.push(placeholder);
+    let selected = options.length - 1;
 
     let lastUp = controller.up.isPressed();
     let lastDown = controller.down.isPressed();
@@ -228,14 +254,11 @@ namespace CCTJ {
       if (a && !lastA) {
         let picked = options[selected];
         if (picked.unlocked) {
+          // Remove placeholder before returning
+          options.pop();
           return selected;
         }
-        // Feedback for trying to pick a locked/crossed option
-        game.showLongText(
-          "That option isn't available right now.",
-          DialogLayout.Bottom,
-        );
-        drawChoiceMenu(prompt, options, selected);
+        // No feedback needed — just don't do anything
       }
 
       lastUp = up;
