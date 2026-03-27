@@ -105,8 +105,8 @@ function drawTitleScreen(): void {
 function openingCutscene(): void {
     CCTJ.clearAllSprites()
 
-    // Draw the present-day game jam scene
-    scene.setBackgroundImage(Art.bg_gamejam)
+    // Draw the present-day game jam scene — fill transparent holes
+    scene.setBackgroundImage(CCTJ.fillTransparent(Art.bg_gamejam))
 
     let winston = sprites.create(CCTJ.winstonImage(), SpriteKind.Player)
     winston.setPosition(16, 56)
@@ -126,20 +126,46 @@ function openingCutscene(): void {
     // Vortex appears!
     CCTJ.say(["Suddenly, a swirling vortex appears!"])
 
+    // Build spin frames: original + 3 flipped variants
+    let vBase = Art.vortex
+    let vFx = vBase.clone()
+    vFx.flipX()
+    let vFxy = vFx.clone()
+    vFxy.flipY()
+    let vFy = vBase.clone()
+    vFy.flipY()
+    let vortexFrames = [vBase, vFx, vFxy, vFy]
+
     let vortex = sprites.create(Art.vortex, SpriteKind.Npc)
     vortex.setPosition(winston.x + 20, winston.y - 20)
 
-    // Flash and shake
+    // Flash, shake, and spin the vortex
+    let vFrame = 0
     for (let i = 0; i < 8; i++) {
+        vortex.setImage(vortexFrames[vFrame % 4])
+        vFrame++
         scene.setBackgroundColor(10) // purple
         pause(50)
+        vortex.setImage(vortexFrames[vFrame % 4])
+        vFrame++
         scene.setBackgroundColor(8)  // blue
         pause(50)
     }
 
     scene.cameraShake(6, 600)
+    // Keep spinning as Winston gets pulled in
+    for (let i = 0; i < 6; i++) {
+        vortex.setImage(vortexFrames[vFrame % 4])
+        vFrame++
+        pause(80)
+    }
     winston.destroy(effects.disintegrate, 400)
-    pause(500)
+    // Spin through the destroy
+    for (let i = 0; i < 6; i++) {
+        vortex.setImage(vortexFrames[vFrame % 4])
+        vFrame++
+        pause(80)
+    }
     vortex.destroy(effects.disintegrate, 300)
     pause(400)
 

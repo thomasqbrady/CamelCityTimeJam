@@ -18,6 +18,16 @@ namespace CCTJ {
         return sunglassesMode ? Art.winstonShades : Art.winstonRight
     }
 
+    /** Left-facing Winston for dialogue scenes where he's on the right side. */
+    export function winstonImageLeft(): Image {
+        if (sunglassesMode) {
+            let flipped = Art.winstonShades.clone()
+            flipped.flipX()
+            return flipped
+        }
+        return Art.winstonLeft
+    }
+
     export function winstonWalkImages(): Image[] {
         return sunglassesMode ? Art.winstonShadesWalkFrames() : Art.winstonWalkFrames()
     }
