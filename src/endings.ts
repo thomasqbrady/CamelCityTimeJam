@@ -27,10 +27,10 @@ namespace CCTJ {
     scene.setBackgroundImage(Art.bg_highschool);
 
     let winston = sprites.create(winstonImage(), SpriteKind.Player);
-    winston.setPosition(30, 56);
+    winston.setPosition(30, 76);
 
     let friend = sprites.create(Art.friendNpc, SpriteKind.Npc);
-    friend.setPosition(128, 56);
+    friend.setPosition(128, 76);
 
     say([
       "Winston lands back at the game jam. It's 2026.",
@@ -57,10 +57,10 @@ namespace CCTJ {
     addFloatingDrones();
 
     let winston = sprites.create(winstonImage(), SpriteKind.Player);
-    winston.setPosition(30, 56);
+    winston.setPosition(30, 76);
 
     let friend = sprites.create(Art.friendNpc, SpriteKind.Npc);
-    friend.setPosition(128, 56);
+    friend.setPosition(128, 76);
 
     say([
       "Winston lands back at the game jam. It's 2026.",
@@ -93,7 +93,7 @@ namespace CCTJ {
     addFloatingDrones();
 
     let winston = sprites.create(winstonImage(), SpriteKind.Player);
-    winston.setPosition(32, 56);
+    winston.setPosition(32, 76);
 
     say([
       "Winston tumbles out of the vortex. Something's different.",
@@ -102,7 +102,7 @@ namespace CCTJ {
     ]);
 
     let student = sprites.create(Art.jetpackStudent, SpriteKind.Npc);
-    student.setPosition(128, 56);
+    student.setPosition(128, 76);
 
     say([
       "A sign reads: CAMEL CITY GAME JAM 2030",
@@ -138,23 +138,24 @@ namespace CCTJ {
   }
 
   function addFloatingDrones(): void {
-    let droneLeft = sprites.create(Art.spotlightDroneWest, SpriteKind.Npc);
+    // Swapped: east-facing drone on the left, west-facing on the right
+    let droneLeft = sprites.create(Art.spotlightDroneEast, SpriteKind.Npc);
     droneLeft.setPosition(30, 40);
-    let droneRight = sprites.create(Art.spotlightDroneEast, SpriteKind.Npc);
+    let droneRight = sprites.create(Art.spotlightDroneWest, SpriteKind.Npc);
     droneRight.setPosition(130, 40);
 
     // Build wobble frames by shifting the image up/down within the sprite
-    let westUp = shiftImage(Art.spotlightDroneWest, -2);
-    let westDown = shiftImage(Art.spotlightDroneWest, 2);
     let eastUp = shiftImage(Art.spotlightDroneEast, -2);
     let eastDown = shiftImage(Art.spotlightDroneEast, 2);
+    let westUp = shiftImage(Art.spotlightDroneWest, -2);
+    let westDown = shiftImage(Art.spotlightDroneWest, 2);
 
-    // Animate with frame-based animation — runs during blocking calls
+    // Frame-based animation runs during blocking game.showLongText calls
     animation.runImageAnimation(droneLeft,
-      [Art.spotlightDroneWest, westUp, Art.spotlightDroneWest, westDown],
+      [Art.spotlightDroneEast, eastUp, Art.spotlightDroneEast, eastDown],
       400, true);
     animation.runImageAnimation(droneRight,
-      [eastDown, Art.spotlightDroneEast, eastUp, Art.spotlightDroneEast],
+      [westDown, Art.spotlightDroneWest, westUp, Art.spotlightDroneWest],
       400, true);
   }
 

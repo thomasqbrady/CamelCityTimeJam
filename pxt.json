@@ -2,7 +2,8 @@
     "name": "camel-city-time-jam",
     "description": "Camel City Time Jam — A time-travel game for the Adafruit PyGamer",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "animation": "*"
     },
     "files": [
         "main.ts",

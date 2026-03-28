@@ -93,7 +93,7 @@ function drawTitleScreen(): void {
   bg.print("Production", 48, 54, 11);
 
   // Winston
-  let wImg = CCTJ.sunglassesMode ? Art.winstonShades : Art.winstonRight;
+  let wImg = CCTJ.sunglassesMode ? Art.winstonShades : Art.winstonProEast;
   bg.drawImage(wImg, 72, 68);
 
   // Prompt
