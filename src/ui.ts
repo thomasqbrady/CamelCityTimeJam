@@ -123,13 +123,13 @@ namespace CCTJ {
   }
 
   /** Set up a dialogue scene with a pre-rendered background image. */
-  export function setupRichScene(bgImage: Image, npcImage: Image): Sprite {
+  export function setupRichScene(bgImage: Image, npcImage: Image, npcX: number, npcY: number, winstonX: number, winstonY: number): Sprite {
     clearAllSprites();
     scene.setBackgroundImage(bgImage);
     let npc = sprites.create(npcImage, SpriteKind.Npc);
-    npc.setPosition(32, 56);
+    npc.setPosition(npcX, npcY);
     let winston = sprites.create(winstonImageLeft(), SpriteKind.Player);
-    winston.setPosition(128, 56);
+    winston.setPosition(winstonX, winstonY);
     return npc;
   }
 
