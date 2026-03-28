@@ -96,11 +96,21 @@ namespace CCTJ {
         pause(75);
       }
 
-      // Characters disappear with the vortex
+      // Only Winston disappears — NPCs stay visible
+      for (let s of sprites.allOfKind(SpriteKind.Player)) {
+        s.destroy(effects.disintegrate, 400);
+      }
+      pause(400);
+      v.destroy(effects.disintegrate, 300);
+      pause(500);
       clearAllSprites();
       scene.setBackgroundColor(15); // black
-      pause(500);
     } else {
+      // Only Winston disappears — NPCs stay visible
+      for (let s of sprites.allOfKind(SpriteKind.Player)) {
+        s.destroy(effects.disintegrate, 400);
+      }
+      pause(400);
       clearAllSprites();
       scene.setBackgroundColor(15); // black
       pause(200);

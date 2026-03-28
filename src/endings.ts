@@ -90,7 +90,6 @@ namespace CCTJ {
   function endingC(): void {
     // Draw futuristic 2030 scene
     scene.setBackgroundImage(Art.bg_highschool_future_kaiju);
-    addFloatingDrones();
 
     let winston = sprites.create(winstonImage(), SpriteKind.Player);
     winston.setPosition(32, 76);
