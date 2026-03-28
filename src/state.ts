@@ -15,17 +15,12 @@ namespace CCTJ {
     }
 
     export function winstonImage(): Image {
-        return sunglassesMode ? Art.winstonShades : Art.winstonRight
+        return sunglassesMode ? Art.winstonRight : Art.winstonNoShadesEast
     }
 
     /** Left-facing Winston for dialogue scenes where he's on the right side. */
     export function winstonImageLeft(): Image {
-        if (sunglassesMode) {
-            let flipped = Art.winstonShades.clone()
-            flipped.flipX()
-            return flipped
-        }
-        return Art.winstonLeft
+        return sunglassesMode ? Art.winstonLeft : Art.winstonNoShadesWest
     }
 
     export function winstonWalkImages(): Image[] {
