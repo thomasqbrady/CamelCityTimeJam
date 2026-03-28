@@ -141,15 +141,7 @@ namespace CCTJ {
     }
 
     if (!skipVortex) {
-      // Build spin frames from flipped variants
-      let vBase = Art.vortex;
-      let vFx = vBase.clone();
-      vFx.flipX();
-      let vFxy = vFx.clone();
-      vFxy.flipY();
-      let vFy = vBase.clone();
-      vFy.flipY();
-      let spinFrames = [vBase, vFx, vFxy, vFy];
+      let spinFrames = vortexFrames();
 
       // Show the vortex sprite over the existing scene
       let v = sprites.create(Art.vortex, SpriteKind.Npc);
@@ -345,7 +337,6 @@ namespace CCTJ {
       lastA = a;
       pause(20);
     }
-    return 0;
   }
 
   // ── Mini-game countdown ────────────────────────────────────

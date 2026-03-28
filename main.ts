@@ -128,15 +128,7 @@ function openingCutscene(): void {
   // Vortex appears!
   CCTJ.say(["Suddenly, a swirling vortex appears!"]);
 
-  // Build spin frames: original + 3 flipped variants
-  let vBase = Art.vortex;
-  let vFx = vBase.clone();
-  vFx.flipX();
-  let vFxy = vFx.clone();
-  vFxy.flipY();
-  let vFy = vBase.clone();
-  vFy.flipY();
-  let vortexFrames = [vBase, vFx, vFxy, vFy];
+  let vortexFrames = CCTJ.vortexFrames();
 
   let vortex = sprites.create(Art.vortex, SpriteKind.Npc);
   vortex.setPosition(simon.x + 20, simon.y - 20);

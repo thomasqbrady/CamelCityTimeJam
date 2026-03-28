@@ -26,4 +26,16 @@ namespace CCTJ {
     export function winstonWalkImages(): Image[] {
         return sunglassesMode ? Art.winstonShadesWalkFrames() : Art.winstonWalkFrames()
     }
+
+    /** Build the 4 vortex spin frames (original + 3 flipped variants). */
+    export function vortexFrames(): Image[] {
+        let base = Art.vortex
+        let fx = base.clone()
+        fx.flipX()
+        let fxy = fx.clone()
+        fxy.flipY()
+        let fy = base.clone()
+        fy.flipY()
+        return [base, fx, fxy, fy]
+    }
 }

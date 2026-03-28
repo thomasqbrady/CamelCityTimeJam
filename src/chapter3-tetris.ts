@@ -301,12 +301,6 @@ namespace CCTJ {
     let lastDown = controller.down.isPressed();
     let lastA = controller.A.isPressed();
 
-    // Use event handler to catch A presses even during simultaneous input
-    let rotateRequested = false;
-    controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-      rotateRequested = true;
-    });
-
     if (!canPlace(board, active, px, py, w, h)) {
       failed = true;
     }
@@ -329,8 +323,7 @@ namespace CCTJ {
       }
 
       // Rotate (variant 2+) with wall/floor kick
-      let wantsRotate = (nowA && !lastA) || rotateRequested;
-      rotateRequested = false;
+      let wantsRotate = nowA && !lastA;
       if (variant >= 2 && wantsRotate) {
         let rotated = rotateBlocks(active);
         let kicked = false;
