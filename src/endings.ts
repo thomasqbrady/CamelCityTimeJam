@@ -24,7 +24,7 @@ namespace CCTJ {
 
   function endingA(): void {
     // Draw present-day scene
-    scene.setBackgroundImage(Art.bg_gamejam);
+    scene.setBackgroundImage(Art.bg_highschool);
 
     let winston = sprites.create(winstonImage(), SpriteKind.Player);
     winston.setPosition(30, 56);
@@ -54,7 +54,7 @@ namespace CCTJ {
   // ── Ending B: "Creative Spark" (Score 3–4) ─────────────────
 
   function endingB(): void {
-    scene.setBackgroundImage(Art.bg_gamejam);
+    scene.setBackgroundImage(Art.bg_highschool);
 
     let winston = sprites.create(winstonImage(), SpriteKind.Player);
     winston.setPosition(30, 56);

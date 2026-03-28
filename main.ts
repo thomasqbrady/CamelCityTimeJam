@@ -106,7 +106,7 @@ function openingCutscene(): void {
   CCTJ.clearAllSprites();
 
   // Draw the present-day game jam scene
-  scene.setBackgroundImage(Art.bg_gamejam);
+  scene.setBackgroundImage(Art.bg_highschool);
 
   let winston = sprites.create(CCTJ.winstonImage(), SpriteKind.Player);
   winston.setPosition(0, 86);

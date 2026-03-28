@@ -172,7 +172,7 @@ namespace CCTJ {
       pdy = 0; // current move direction (start going left)
     let pwdx = -1,
       pwdy = 0; // buffered input direction
-    let pacSpeed = 2; // pixels per frame
+    let pacSpeed = 1; // pixels per frame
 
     // Mouth animation
     let mouthOpen = true;
@@ -422,7 +422,7 @@ namespace CCTJ {
     vortexTransition("1979 - TOKYO");
 
     // Scene: Namco office
-    setupRichScene(Art.bg_namco, Art.iwatani, 32, 56, 128, 56); // blue bg — clean Japanese office
+    setupRichScene(Art.bg_namco, Art.iwatani, 32, 66, 128, 66); // blue bg — clean Japanese office
 
     npcSay("IWATANI", "...Nan desu ka?! How about English?");
     npcSay(
@@ -446,7 +446,7 @@ namespace CCTJ {
     say(["ROUND 1: Maze prototype. Avoid the ghosts for 10 seconds!"]);
     let r1 = playPacRound(1, true);
 
-    setupRichScene(Art.bg_namco, Art.iwatani, 32, 56, 128, 56);
+    setupRichScene(Art.bg_namco, Art.iwatani, 32, 66, 128, 66);
     if (r1) {
       npcSay(
         "IWATANI",
@@ -462,7 +462,7 @@ namespace CCTJ {
     ]);
 
     if (pick1 == 0) {
-      setupRichScene(Art.bg_namco, Art.iwatani, 32, 56, 128, 56);
+      setupRichScene(Art.bg_namco, Art.iwatani, 32, 66, 128, 66);
       npcSay(
         "IWATANI",
         "Hm. I thought so too at first. But the ghosts are boring, right?",
@@ -473,7 +473,7 @@ namespace CCTJ {
 
     // Player chose to improve — add power pellets
     creativityScore += 1;
-    setupRichScene(Art.bg_namco, Art.iwatani, 32, 56, 128, 56);
+    setupRichScene(Art.bg_namco, Art.iwatani, 32, 66, 128, 66);
     npcSay("IWATANI", "Big dots that let you EAT the ghosts?!");
     npcSay("IWATANI", "Turn the hunter into the hunted! Brilliant!");
 
@@ -481,7 +481,7 @@ namespace CCTJ {
     say(["ROUND 2: Power pellets in the corners! Eat them to fight back!"]);
     let r2 = playPacRound(2, true);
 
-    setupRichScene(Art.bg_namco, Art.iwatani, 32, 56, 128, 56);
+    setupRichScene(Art.bg_namco, Art.iwatani, 32, 66, 128, 66);
     if (r2) {
       npcSay(
         "IWATANI",
@@ -500,7 +500,7 @@ namespace CCTJ {
     ]);
 
     if (pick2 == 0) {
-      setupRichScene(Art.bg_namco, Art.iwatani, 32, 56, 128, 56);
+      setupRichScene(Art.bg_namco, Art.iwatani, 32, 66, 128, 66);
       npcSay(
         "IWATANI",
         "The power pellets change everything! Thank you, camel-san!",
@@ -510,7 +510,7 @@ namespace CCTJ {
 
     // Player chose ghost personalities
     creativityScore += 1;
-    setupRichScene(Art.bg_namco, Art.iwatani, 32, 56, 128, 56);
+    setupRichScene(Art.bg_namco, Art.iwatani, 32, 66, 128, 66);
     npcSay("IWATANI", "Different behaviors! One could chase directly...");
     npcSay("IWATANI", "One could try to ambush you from ahead...");
     npcSay("IWATANI", "They'd work as a team without even knowing it!");
@@ -525,7 +525,7 @@ namespace CCTJ {
     say(["ROUND 3: Colored ghosts with unique AI! Watch their patterns!"]);
     playPacRound(3, false);
 
-    setupRichScene(Art.bg_namco, Art.iwatani, 32, 56, 128, 56);
+    setupRichScene(Art.bg_namco, Art.iwatani, 32, 66, 128, 66);
     npcSay("IWATANI", "This is going to bring everyone to the arcade!");
     npcSay("IWATANI", "I'm calling it... Puck Man!");
     npcSay("IWATANI", "...though the American branch may want to rename it.");
