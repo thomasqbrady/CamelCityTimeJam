@@ -40,14 +40,10 @@ namespace CCTJ {
     clearAllSprites();
     scene.setBackgroundColor(15);
 
-    game.showLongText(
+    sayCenter([
       "Winston made it to the game jam. The games were pretty good.",
-      DialogLayout.Center,
-    );
-    game.showLongText(
       "But what if you'd played a little longer...?",
-      DialogLayout.Center,
-    );
+    ]);
   }
 
   // ── Ending B: "Creative Spark" (Score 3–4) ─────────────────
@@ -72,14 +68,10 @@ namespace CCTJ {
     clearAllSprites();
     scene.setBackgroundColor(15);
 
-    game.showLongText(
+    sayCenter([
       "Winston pushed a little harder, dug a little deeper to find inspiration.",
-      DialogLayout.Center,
-    );
-    game.showLongText(
       "It's going to pay off at this year's Camel City Game Jam.",
-      DialogLayout.Center,
-    );
+    ]);
 
     effects.confetti.startScreenEffect(4800);
     pause(5600);
@@ -118,11 +110,10 @@ namespace CCTJ {
     effects.confetti.startScreenEffect(8000);
     scene.cameraShake(2, 500);
 
-    game.showLongText(
+    sayCenter([
       "The future of games is in YOUR hands.",
-      DialogLayout.Center,
-    );
-    game.showLongText("Now go make something amazing.", DialogLayout.Center);
+      "Now go make something amazing.",
+    ]);
 
     pause(4000);
   }
@@ -149,7 +140,7 @@ namespace CCTJ {
     let westUp = shiftImage(Art.spotlightDroneWest, -2);
     let westDown = shiftImage(Art.spotlightDroneWest, 2);
 
-    // Frame-based animation runs during blocking game.showLongText calls
+    // Frame-based animation runs during blocking dialog calls
     animation.runImageAnimation(droneLeft,
       [Art.spotlightDroneEast, eastUp, Art.spotlightDroneEast, eastDown],
       400, true);

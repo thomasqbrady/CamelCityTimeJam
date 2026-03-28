@@ -41,24 +41,71 @@ namespace CCTJ {
 
   // ── Dialogue helpers ───────────────────────────────────────
 
-  /** Show a sequence of dialogue lines (bottom text box). */
   /** Wait for A button to be released (prevents carry-over into next interaction). */
   export function debounceA(): void {
     while (controller.A.isPressed()) { pause(20); }
   }
 
+  /** Wait for both A and B to be released. */
+  function debounceAB(): void {
+    while (controller.A.isPressed() || controller.B.isPressed()) { pause(20); }
+  }
 
+  /** Draw a dialog box with word-wrapped text. center=true puts it mid-screen. */
+  function drawDialogBox(text: string, center: boolean = false): void {
+    let bg = scene.backgroundImage();
+    let wrapped = wordWrap(text, 24);
+    let lineCount = Math.min(wrapped.length, 3);
+    let boxH = lineCount * 10 + 8;
+    let boxY = center ? (120 - boxH) / 2 : 120 - boxH - 2;
+    // Draw box background and border
+    bg.fillRect(2, boxY, 156, boxH, 15); // black fill
+    bg.drawRect(2, boxY, 156, boxH, 1);  // white border
+    // Word-wrap and draw text
+    for (let i = 0; i < lineCount; i++) {
+      bg.print(wrapped[i], 6, boxY + 4 + i * 10, 1);
+    }
+    // Draw prompt indicator
+    bg.print("A", 148, boxY + boxH - 10, 5); // yellow A prompt
+  }
+
+  /** Show a single dialog line and wait for A or B to dismiss. */
+  function showDialog(text: string, center: boolean = false): void {
+    // Save background and draw dialog on top
+    let savedBg = scene.backgroundImage().clone();
+    drawDialogBox(text, center);
+    // Wait for A or B press (edge-triggered)
+    debounceAB();
+    while (true) {
+      if (controller.A.isPressed() || controller.B.isPressed()) {
+        break;
+      }
+      pause(20);
+    }
+    // Restore background
+    scene.backgroundImage().drawImage(savedBg, 0, 0);
+  }
+
+  /** Show a sequence of dialogue lines (bottom text box). */
   export function say(lines: string[]): void {
     for (let line of lines) {
-      game.showLongText(line, DialogLayout.Bottom);
+      showDialog(line);
     }
-    debounceA();
+    debounceAB();
   }
 
   /** Show a single line of NPC dialogue with their name. */
   export function npcSay(name: string, text: string): void {
-    game.showLongText(name + ": " + text, DialogLayout.Bottom);
-    debounceA();
+    showDialog(name + ": " + text);
+    debounceAB();
+  }
+
+  /** Show a sequence of centered dialogue lines. */
+  export function sayCenter(lines: string[]): void {
+    for (let line of lines) {
+      showDialog(line, true);
+    }
+    debounceAB();
   }
 
   // ── Vortex transition ──────────────────────────────────────
