@@ -183,12 +183,13 @@ namespace CCTJ {
 
       // Status indicator and color
       let prefix = "  ";
-      if (!opt.unlocked) {
+      let isPlaceholder = opt.label == "Choose an answer...";
+      if (!opt.unlocked && !isPlaceholder) {
         prefix = "? ";
         color = 11; // grey — locked
       } else if (selected == i) {
         prefix = "> ";
-        color = 5; // yellow — selected and available
+        color = isPlaceholder ? 11 : 5; // grey for placeholder, yellow for real options
       }
 
       // Word-wrap the label (24 chars max with prefix and margins)
@@ -206,8 +207,8 @@ namespace CCTJ {
         bg.print(linePrefix + wrappedLines[li], 6, y + li * 10, color);
       }
 
-      // Show lock hint
-      if (!opt.unlocked) {
+      // Show lock hint (but not for the placeholder option)
+      if (!opt.unlocked && opt.label != "Choose an answer...") {
         bg.print("  (survive to unlock)", 6, y + wrappedLines.length * 10, 12);
         blockHeight += 10;
       }

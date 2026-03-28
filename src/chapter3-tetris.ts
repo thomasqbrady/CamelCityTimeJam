@@ -267,7 +267,11 @@ namespace CCTJ {
    * variant 3: tetrominoes, rotation, line clearing + speed
    * Returns true if player survived 10 seconds.
    */
-  function playTetrisRound(variant: number, gated: boolean, duration: number = 10000): boolean {
+  function playTetrisRound(
+    variant: number,
+    gated: boolean,
+    duration: number = 10000,
+  ): boolean {
     clearAllSprites();
     scene.setBackgroundImage(image.create(160, 120));
 
@@ -297,6 +301,12 @@ namespace CCTJ {
     let lastDown = controller.down.isPressed();
     let lastA = controller.A.isPressed();
 
+    // Use event handler to catch A presses even during simultaneous input
+    let rotateRequested = false;
+    controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+      rotateRequested = true;
+    });
+
     if (!canPlace(board, active, px, py, w, h)) {
       failed = true;
     }
@@ -319,11 +329,21 @@ namespace CCTJ {
       }
 
       // Rotate (variant 2+) with wall/floor kick
-      if (variant >= 2 && nowA && !lastA) {
+      let wantsRotate = (nowA && !lastA) || rotateRequested;
+      rotateRequested = false;
+      if (variant >= 2 && wantsRotate) {
         let rotated = rotateBlocks(active);
         let kicked = false;
         // Try current position, then kick offsets
-        let kicks = [[0, 0], [-1, 0], [1, 0], [-2, 0], [2, 0], [0, -1], [0, -2]];
+        let kicks = [
+          [0, 0],
+          [-1, 0],
+          [1, 0],
+          [-2, 0],
+          [2, 0],
+          [0, -1],
+          [0, -2],
+        ];
         for (let kick of kicks) {
           if (canPlace(board, rotated, px + kick[0], py + kick[1], w, h)) {
             active = rotated;
@@ -398,7 +418,7 @@ namespace CCTJ {
     // Scene: Soviet computing centre
     setupRichScene(Art.bg_moscow, Art.pajitnov); // grey bg — austere office
 
-    npcSay("PAJITNOV", "...Chto?! A camel? In Moscow?");
+    npcSay("PAJITNOV", "...Chto eto?! Verblyud?! Ah, you speak English?");
     npcSay(
       "PAJITNOV",
       "I work here at the Computing Centre. I'm supposed to be testing this computer, but...",
@@ -434,7 +454,7 @@ namespace CCTJ {
 
     let pick1 = chooseIdea("How would you improve it?", [
       new ChoiceOption("It seems like a fine puzzle", true),
-      new ChoiceOption("Simpler shapes (4 squares)", r1),
+      new ChoiceOption("What if you simplified the shapes?", r1),
     ]);
 
     if (pick1 == 0) {
@@ -478,10 +498,7 @@ namespace CCTJ {
 
     let pick2 = chooseIdea("Any more ideas?", [
       new ChoiceOption("It's good enough", true),
-      new ChoiceOption(
-        "What if when you pack things in really well, they clear out and you get points?",
-        r2,
-      ),
+      new ChoiceOption("What if you could clear out rows?", r2),
     ]);
 
     if (pick2 == 0) {

@@ -289,11 +289,11 @@ namespace CCTJ {
     setupRichScene(Art.bg_atari, Art.bushnell);
     npcSay(
       "BUSHNELL",
-      "This is going to be huge. Thanks, mysterious camel friend!",
+      "This is going to be a breakout hit! Thanks, mysterious camel friend!",
     );
     npcSay(
       "BUSHNELL",
-      "This is going to be a breakout hit! Say... that's not a bad name...",
+      "Say... breakout hit... Breakout! That's not a bad name...",
     );
   }
 }

@@ -212,6 +212,7 @@ namespace CCTJ {
     let frightenedUntil = 0;
     let failed = false;
     let start = game.runtime();
+    let ghostTick = 0;
 
     // ── Main game loop ──
     while (game.runtime() - start < 10000) {
@@ -279,8 +280,10 @@ namespace CCTJ {
         pac.setImage(mouthOpen ? Art.pacOpen : Art.pacClosed);
       }
 
-      // ── Ghost movement (grid-snapped) ──
-      for (let i = 0; i < 4; i++) {
+      // ── Ghost movement (grid-snapped, skip 2 of every 5 frames for 40% slower) ──
+      ghostTick++;
+      let moveGhosts = ghostTick % 5 < 3;
+      for (let i = 0; moveGhosts && i < 4; i++) {
         let gtx = tileX(gtcols[i]);
         let gty = tileY(gtrows[i]);
         let gAt =

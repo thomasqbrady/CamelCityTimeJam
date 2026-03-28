@@ -126,8 +126,8 @@ namespace CCTJ {
     if (!r1) {
       let pickA = chooseIdea("Chapter 3 Feedback", "What is missing?", [
         choiceA("A: It seems fine.", true, false),
-        choiceA("B: Simpler shapes", false, false),
-        choiceA("C: Clear full rows", false, false),
+        choiceA("B: What if the shapes were simpler?", false, false),
+        choiceA("C: What if you could clear out rows?", false, false),
       ]);
       if (pickA == 0) {
         showLines(["PAJITNOV: Maybe I should return to my normal work."]);
@@ -140,8 +140,8 @@ namespace CCTJ {
       "You survived. Suggest an idea:",
       [
         choiceA("A: It seems fine.", false, true),
-        choiceA("B: Simpler shapes", true, false),
-        choiceA("C: Clear full rows", false, false),
+        choiceA("B: What if the shapes were simpler?", true, false),
+        choiceA("C: What if you could clear out rows?", false, false),
       ],
     );
     if (pickB == 1) {
@@ -158,7 +158,7 @@ namespace CCTJ {
       [
         choiceA("A: It seems fine.", false, true),
         choiceA("B: What if the shapes were simpler?", false, true),
-        choiceA("C: Clear full rows", true, false),
+        choiceA("C: What if you could clear out rows?", true, false),
       ],
     );
     if (pickC == 2) {
