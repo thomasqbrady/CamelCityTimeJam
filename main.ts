@@ -94,7 +94,7 @@ function drawTitleScreen(): void {
 
   // Winston
   let wImg = CCTJ.sunglassesMode ? Art.winstonShades : Art.winstonProEast;
-  bg.drawImage(wImg, 72, 68);
+  bg.drawImage(wImg, 82, 68);
 
   // Prompt
   bg.print("Press A to start", 28, 100, 1); // white

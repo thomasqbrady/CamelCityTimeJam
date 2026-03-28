@@ -34,7 +34,7 @@ namespace CCTJ {
 
     say([
       "Winston lands back at the game jam. It's 2026.",
-      "FRIEND: Hey, Winston! You're just in time. The game jam is about to start!",
+      "FRIEND: Hey, Winston! You're just in time for the game jam!",
     ]);
 
     clearAllSprites();
@@ -42,7 +42,7 @@ namespace CCTJ {
 
     sayCenter([
       "Winston made it to the game jam. The games were pretty good.",
-      "But what if you'd played a little longer...?",
+      "But what if you'd played a little harder...?",
     ]);
   }
 
