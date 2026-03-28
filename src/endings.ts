@@ -130,24 +130,32 @@ namespace CCTJ {
 
   // ── Floating Drones ───────────────────────────────────────
 
+  /** Create a copy of an image shifted vertically by dy pixels. */
+  function shiftImage(src: Image, dy: number): Image {
+    let dst = image.create(src.width, src.height);
+    dst.drawImage(src, 0, dy);
+    return dst;
+  }
+
   function addFloatingDrones(): void {
     let droneLeft = sprites.create(Art.spotlightDroneWest, SpriteKind.Npc);
     droneLeft.setPosition(30, 40);
     let droneRight = sprites.create(Art.spotlightDroneEast, SpriteKind.Npc);
     droneRight.setPosition(130, 40);
 
-    // Gentle floating wobble — oscillate up/down by 2 pixels
-    let wobbleUp = true;
-    game.onUpdateInterval(400, function () {
-      if (wobbleUp) {
-        droneLeft.y -= 2;
-        droneRight.y += 2;
-      } else {
-        droneLeft.y += 2;
-        droneRight.y -= 2;
-      }
-      wobbleUp = !wobbleUp;
-    });
+    // Build wobble frames by shifting the image up/down within the sprite
+    let westUp = shiftImage(Art.spotlightDroneWest, -2);
+    let westDown = shiftImage(Art.spotlightDroneWest, 2);
+    let eastUp = shiftImage(Art.spotlightDroneEast, -2);
+    let eastDown = shiftImage(Art.spotlightDroneEast, 2);
+
+    // Animate with frame-based animation — runs during blocking calls
+    animation.runImageAnimation(droneLeft,
+      [Art.spotlightDroneWest, westUp, Art.spotlightDroneWest, westDown],
+      400, true);
+    animation.runImageAnimation(droneRight,
+      [eastDown, Art.spotlightDroneEast, eastUp, Art.spotlightDroneEast],
+      400, true);
   }
 
   // ── Credits ────────────────────────────────────────────────

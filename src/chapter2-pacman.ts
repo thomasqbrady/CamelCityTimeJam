@@ -206,7 +206,7 @@ namespace CCTJ {
       gdys.push(startDys[i]);
     }
 
-    let ghostSpd = variant == 3 ? 2 : 1;
+    let ghostSpd = 1;
 
     // ── Game state ──
     let frightenedUntil = 0;
@@ -474,11 +474,14 @@ namespace CCTJ {
     // Player chose to improve — add power pellets
     creativityScore += 1;
     setupRichScene(Art.bg_namco, Art.iwatani, 32, 84, 128, 84);
-    npcSay("IWATANI", "Big dots that let you EAT the ghosts?!");
     npcSay("IWATANI", "Turn the hunter into the hunted! Brilliant!");
+    npcSay(
+      "IWATANI",
+      "We could add special pills at the edges that let YOU eat the GHOSTS!",
+    );
 
     // ── Round 2: Power pellets ─────────────────────────────
-    say(["ROUND 2: Power pellets in the corners! Eat them to fight back!"]);
+    say(["ROUND 2: Power pellets let you fight back!"]);
     let r2 = playPacRound(2, true);
 
     setupRichScene(Art.bg_namco, Art.iwatani, 32, 84, 128, 84);
