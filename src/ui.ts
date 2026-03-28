@@ -51,29 +51,33 @@ namespace CCTJ {
     while (controller.A.isPressed() || controller.B.isPressed()) { pause(20); }
   }
 
-  /** Draw a dialog box with word-wrapped text. center=true puts it mid-screen. */
-  function drawDialogBox(text: string, center: boolean = false): void {
-    let bg = scene.backgroundImage();
+  /** Create a dialog box image with word-wrapped text. */
+  function createDialogImage(text: string, center: boolean = false): Image {
     let wrapped = wordWrap(text, 24);
     let lineCount = Math.min(wrapped.length, 3);
     let boxH = lineCount * 10 + 8;
+    // Full-screen image so we can position the box within it
+    let img = image.create(160, 120);
     let boxY = center ? (120 - boxH) / 2 : 120 - boxH - 2;
     // Draw box background and border
-    bg.fillRect(2, boxY, 156, boxH, 15); // black fill
-    bg.drawRect(2, boxY, 156, boxH, 1);  // white border
+    img.fillRect(2, boxY, 156, boxH, 15); // black fill
+    img.drawRect(2, boxY, 156, boxH, 1);  // white border
     // Word-wrap and draw text
     for (let i = 0; i < lineCount; i++) {
-      bg.print(wrapped[i], 6, boxY + 4 + i * 10, 1);
+      img.print(wrapped[i], 6, boxY + 4 + i * 10, 1);
     }
     // Draw prompt indicator
-    bg.print("A", 148, boxY + boxH - 10, 5); // yellow A prompt
+    img.print("A", 148, boxY + boxH - 10, 5); // yellow A prompt
+    return img;
   }
 
   /** Show a single dialog line and wait for A or B to dismiss. */
   function showDialog(text: string, center: boolean = false): void {
-    // Save background and draw dialog on top
-    let savedBg = scene.backgroundImage().clone();
-    drawDialogBox(text, center);
+    // Create a sprite for the dialog so it renders above all other sprites
+    let dialogImg = createDialogImage(text, center);
+    let dialogSprite = sprites.create(dialogImg, SpriteKind.Npc);
+    dialogSprite.setPosition(80, 60);
+    dialogSprite.z = 1000; // render above everything
     // Wait for A or B press (edge-triggered)
     debounceAB();
     while (true) {
@@ -82,8 +86,7 @@ namespace CCTJ {
       }
       pause(20);
     }
-    // Restore background
-    scene.backgroundImage().drawImage(savedBg, 0, 0);
+    dialogSprite.destroy();
   }
 
   /** Show a sequence of dialogue lines (bottom text box). */

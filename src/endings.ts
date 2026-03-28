@@ -27,10 +27,10 @@ namespace CCTJ {
     scene.setBackgroundImage(Art.bg_highschool);
 
     let winston = sprites.create(winstonImage(), SpriteKind.Player);
-    winston.setPosition(30, 76);
+    winston.setPosition(30, 84);
 
     let friend = sprites.create(Art.friendNpc, SpriteKind.Npc);
-    friend.setPosition(128, 76);
+    friend.setPosition(128, 84);
 
     say([
       "Winston lands back at the game jam. It's 2026.",
@@ -53,10 +53,10 @@ namespace CCTJ {
     addFloatingDrones();
 
     let winston = sprites.create(winstonImage(), SpriteKind.Player);
-    winston.setPosition(30, 76);
+    winston.setPosition(30, 84);
 
     let friend = sprites.create(Art.friendNpc, SpriteKind.Npc);
-    friend.setPosition(128, 76);
+    friend.setPosition(128, 84);
 
     say([
       "Winston lands back at the game jam. It's 2026.",
@@ -84,7 +84,7 @@ namespace CCTJ {
     scene.setBackgroundImage(Art.bg_highschool_future_kaiju);
 
     let winston = sprites.create(winstonImage(), SpriteKind.Player);
-    winston.setPosition(32, 76);
+    winston.setPosition(32, 84);
 
     say([
       "Winston tumbles out of the vortex. Something's different.",
@@ -93,7 +93,7 @@ namespace CCTJ {
     ]);
 
     let student = sprites.create(Art.jetpackStudent, SpriteKind.Npc);
-    student.setPosition(128, 76);
+    student.setPosition(128, 84);
 
     say([
       "A sign reads: CAMEL CITY GAME JAM 2030",
@@ -141,12 +141,18 @@ namespace CCTJ {
     let westDown = shiftImage(Art.spotlightDroneWest, 2);
 
     // Frame-based animation runs during blocking dialog calls
-    animation.runImageAnimation(droneLeft,
+    animation.runImageAnimation(
+      droneLeft,
       [Art.spotlightDroneEast, eastUp, Art.spotlightDroneEast, eastDown],
-      400, true);
-    animation.runImageAnimation(droneRight,
+      400,
+      true,
+    );
+    animation.runImageAnimation(
+      droneRight,
       [westDown, Art.spotlightDroneWest, westUp, Art.spotlightDroneWest],
-      400, true);
+      400,
+      true,
+    );
   }
 
   // ── Credits ────────────────────────────────────────────────
