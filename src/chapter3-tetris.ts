@@ -416,7 +416,7 @@ namespace CCTJ {
     vortexTransition("1984 - MOSCOW");
 
     // Scene: Soviet computing centre
-    setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 66, 128, 66); // grey bg — austere office
+    setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 76, 128, 76); // grey bg — austere office
 
     npcSay("PAJITNOV", "...Chto eto?! Verblyud?! Ah, you speak English?");
     npcSay(
@@ -442,7 +442,7 @@ namespace CCTJ {
     ]);
     let r1 = playTetrisRound(1, true);
 
-    setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 66, 128, 66);
+    setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 76, 128, 76);
     if (r1) {
       npcSay(
         "PAJITNOV",
@@ -458,7 +458,7 @@ namespace CCTJ {
     ]);
 
     if (pick1 == 0) {
-      setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 66, 128, 66);
+      setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 76, 128, 76);
       npcSay(
         "PAJITNOV",
         "Maybe you're right. Or maybe I should get back to testing this computer.",
@@ -468,7 +468,7 @@ namespace CCTJ {
 
     // Player chose to improve — simpler shapes
     creativityScore += 1;
-    setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 66, 128, 66);
+    setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 76, 128, 76);
     npcSay(
       "PAJITNOV",
       "Four squares each... that would be only... seven shapes!",
@@ -483,7 +483,7 @@ namespace CCTJ {
     say(["ROUND 2: Tetrominoes! 4-square shapes. Press A to rotate!"]);
     let r2 = playTetrisRound(2, true);
 
-    setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 66, 128, 66);
+    setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 76, 128, 76);
     if (r2) {
       npcSay(
         "PAJITNOV",
@@ -502,7 +502,7 @@ namespace CCTJ {
     ]);
 
     if (pick2 == 0) {
-      setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 66, 128, 66);
+      setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 76, 128, 76);
       npcSay(
         "PAJITNOV",
         "The simpler shapes fit together so much better! Spasibo, camel friend!",
@@ -512,20 +512,20 @@ namespace CCTJ {
 
     // Player chose line clearing
     creativityScore += 1;
-    setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 66, 128, 66);
+    setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 76, 128, 76);
     npcSay("PAJITNOV", "YES! When you fill a complete row, it disappears!");
     npcSay("PAJITNOV", "Then if you're good, the game NEVER has to end!");
     npcSay("PAJITNOV", "You keep going by cleaning the bottom of the well!");
     npcSay(
       "PAJITNOV",
-      "I cannot stop playing this. I have smoked so many cigarettes today...",
+      "I cannot stop playing this. I have drunk three pots of coffee...",
     );
 
     // ── Round 3: Full Tetris ───────────────────────────────
     say(["ROUND 3: Full Tetris! Lines clear, speed increases!"]);
     playTetrisRound(3, false, 30000);
 
-    setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 66, 128, 66);
+    setupRichScene(Art.bg_moscow, Art.pajitnov, 32, 76, 128, 76);
     npcSay("PAJITNOV", "This is... this is something special. I can feel it.");
     npcSay("PAJITNOV", "Tetra... plus tennis, my favorite sport...");
     npcSay("PAJITNOV", "TETRIS. I'm calling it Tetris.");

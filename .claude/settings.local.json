@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__pixellab__list_characters",
+      "mcp__pixellab__create_character",
+      "mcp__pixellab__animate_character",
+      "mcp__pixellab__get_character",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Bash(done)",
+      "Bash(mkdir -p /Users/tqb/Development/CamelCityTimeJam/assets/pixellab/archive)",
+      "Bash(mv bushnell64_south.png bushnell_east.png bushnell_south.png friend64_south.png iwatani_64_south.png iwatani_south.png jetpackkid64_south.png pajitnov64_south.png pajitnov_south.png winston64_east.png winston64_south.png winston64_west.png winston_all.zip winston_east.png winston_south.png winston_west.png archive/)",
+      "Bash(mv winston_anim archive/)",
+      "mcp__pixellab__create_map_object",
+      "mcp__pixellab__get_map_object",
+      "Read(//tmp/**)",
+      "Bash(for b:*)",
+      "Bash(mkdir -p winston64_walk)",
+      "Bash(mkdir -p winston_noshades_walk)",
+      "Bash(__NEW_LINE_e2511eddec09bf93__ python3:*)",
+      "Bash(find /Users/tqb/Development/CamelCityTimeJam -type f \\\\\\(-name *warp* -o -name *time* \\\\\\))",
+      "Bash(pxt build:*)",
+      "Bash(find /Users/tqb/Development/CamelCityTimeJam -type f \\\\\\(-name *chair* -o -name *seat* \\\\\\))"
+    ]
+  }
+}

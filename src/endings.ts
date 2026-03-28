@@ -54,7 +54,8 @@ namespace CCTJ {
   // ── Ending B: "Creative Spark" (Score 3–4) ─────────────────
 
   function endingB(): void {
-    scene.setBackgroundImage(Art.bg_highschool);
+    scene.setBackgroundImage(Art.bg_highschool_future);
+    addFloatingDrones();
 
     let winston = sprites.create(winstonImage(), SpriteKind.Player);
     winston.setPosition(30, 56);
@@ -89,7 +90,8 @@ namespace CCTJ {
 
   function endingC(): void {
     // Draw futuristic 2030 scene
-    scene.setBackgroundImage(Art.bg_futuristic);
+    scene.setBackgroundImage(Art.bg_highschool_future_kaiju);
+    addFloatingDrones();
 
     let winston = sprites.create(winstonImage(), SpriteKind.Player);
     winston.setPosition(32, 56);
@@ -125,6 +127,28 @@ namespace CCTJ {
     game.showLongText("Now go make something amazing.", DialogLayout.Center);
 
     pause(4000);
+  }
+
+  // ── Floating Drones ───────────────────────────────────────
+
+  function addFloatingDrones(): void {
+    let droneLeft = sprites.create(Art.spotlightDroneWest, SpriteKind.Npc);
+    droneLeft.setPosition(30, 40);
+    let droneRight = sprites.create(Art.spotlightDroneEast, SpriteKind.Npc);
+    droneRight.setPosition(130, 40);
+
+    // Gentle floating wobble — oscillate up/down by 2 pixels
+    let wobbleUp = true;
+    game.onUpdateInterval(400, function () {
+      if (wobbleUp) {
+        droneLeft.y -= 2;
+        droneRight.y += 2;
+      } else {
+        droneLeft.y += 2;
+        droneRight.y -= 2;
+      }
+      wobbleUp = !wobbleUp;
+    });
   }
 
   // ── Credits ────────────────────────────────────────────────
