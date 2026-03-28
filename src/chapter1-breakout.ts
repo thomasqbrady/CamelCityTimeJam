@@ -142,6 +142,8 @@ namespace CCTJ {
             ballSprite.vy *= -1;
             if (variant >= 2) {
               brick.destroy(effects.disintegrate, 80);
+            } else {
+              brick.destroy();
             }
             break;
           }
@@ -179,7 +181,7 @@ namespace CCTJ {
     vortexTransition("1975 - CALIFORNIA", true);
 
     // Scene: Atari office
-    setupRichScene(Art.bg_atari, Art.bushnell, 32, 76, 128, 76);
+    setupRichScene(Art.bg_atari, Art.bushnell, 32, 84, 128, 84);
 
     npcSay(
       "BUSHNELL",
@@ -206,7 +208,7 @@ namespace CCTJ {
     say(["ROUND 1: The prototype. Press A to launch the ball."]);
     let r1 = playBreakoutRound(1, true);
 
-    setupRichScene(Art.bg_atari, Art.bushnell, 32, 76, 128, 76);
+    setupRichScene(Art.bg_atari, Art.bushnell, 32, 84, 128, 84);
     if (r1) {
       npcSay("BUSHNELL", "Not bad! You kept it going. So what do you think?");
     } else {
@@ -219,7 +221,7 @@ namespace CCTJ {
     ]);
 
     if (pick1 == 0) {
-      setupRichScene(Art.bg_atari, Art.bushnell, 32, 76, 128, 76);
+      setupRichScene(Art.bg_atari, Art.bushnell, 32, 84, 128, 84);
       npcSay(
         "BUSHNELL",
         "I think that Jobs kid has a reality distortion field, and you're in it.",
@@ -233,7 +235,7 @@ namespace CCTJ {
 
     // Player chose to improve — add angled bouncing
     creativityScore += 1;
-    setupRichScene(Art.bg_atari, Art.bushnell, 32, 76, 128, 76);
+    setupRichScene(Art.bg_atari, Art.bushnell, 32, 84, 128, 84);
     npcSay("BUSHNELL", "Angles! Reflections! That changes everything!");
     npcSay("BUSHNELL", "Woz will love it... he'll be up all night!");
 
@@ -241,7 +243,7 @@ namespace CCTJ {
     say(["ROUND 2: Now with angles and colored bricks!"]);
     let r2 = playBreakoutRound(2, true, 15000);
 
-    setupRichScene(Art.bg_atari, Art.bushnell, 32, 76, 128, 76);
+    setupRichScene(Art.bg_atari, Art.bushnell, 32, 84, 128, 84);
     if (r2) {
       npcSay("BUSHNELL", "Now THAT feels like a game! Any other ideas?");
     } else {
@@ -260,7 +262,7 @@ namespace CCTJ {
     ]);
 
     if (pick2 == 0) {
-      setupRichScene(Art.bg_atari, Art.bushnell, 32, 76, 128, 76);
+      setupRichScene(Art.bg_atari, Art.bushnell, 32, 84, 128, 84);
       npcSay(
         "BUSHNELL",
         "Those angles make all the difference. Thanks, uh, what did you say your name was?",
@@ -270,7 +272,7 @@ namespace CCTJ {
 
     // Player chose paddle-edge aiming
     creativityScore += 1;
-    setupRichScene(Art.bg_atari, Art.bushnell, 32, 76, 128, 76);
+    setupRichScene(Art.bg_atari, Art.bushnell, 32, 84, 128, 84);
     npcSay(
       "BUSHNELL",
       "Hmm, like the angle of the bounce depends on what part of the paddle you hit it with?",
@@ -286,7 +288,7 @@ namespace CCTJ {
     say(["ROUND 3: Full Breakout! Aim with the paddle edges."]);
     playBreakoutRound(3, false, 15000);
 
-    setupRichScene(Art.bg_atari, Art.bushnell, 32, 76, 128, 76);
+    setupRichScene(Art.bg_atari, Art.bushnell, 32, 84, 128, 84);
     npcSay(
       "BUSHNELL",
       "This is going to be a breakout hit! Thanks, mysterious camel friend!",

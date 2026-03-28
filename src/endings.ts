@@ -34,8 +34,7 @@ namespace CCTJ {
 
     say([
       "Winston lands back at the game jam. It's 2026.",
-      "FRIEND: Hey, Winston! You're just in time. The jam is about to start!",
-      "Winston walks into the building.",
+      "FRIEND: Hey, Winston! You're just in time. The game jam is about to start!",
     ]);
 
     clearAllSprites();

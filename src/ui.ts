@@ -74,11 +74,6 @@ namespace CCTJ {
       pause(40);
     }
 
-    // Clear sprites after flash, before black screen
-    clearAllSprites();
-    scene.setBackgroundColor(15); // black
-    pause(200);
-
     if (!skipVortex) {
       // Build spin frames from flipped variants
       let vBase = Art.vortex;
@@ -90,7 +85,7 @@ namespace CCTJ {
       vFy.flipY();
       let spinFrames = [vBase, vFx, vFxy, vFy];
 
-      // Show the vortex sprite briefly, spinning
+      // Show the vortex sprite over the existing scene
       let v = sprites.create(Art.vortex, SpriteKind.Npc);
       v.setPosition(80, 60);
       scene.cameraShake(4, 500);
@@ -100,8 +95,15 @@ namespace CCTJ {
         sf++;
         pause(75);
       }
-      v.destroy(effects.disintegrate, 400);
+
+      // Characters disappear with the vortex
+      clearAllSprites();
+      scene.setBackgroundColor(15); // black
       pause(500);
+    } else {
+      clearAllSprites();
+      scene.setBackgroundColor(15); // black
+      pause(200);
     }
 
     // Chapter card
