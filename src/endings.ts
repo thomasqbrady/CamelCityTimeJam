@@ -61,6 +61,7 @@ namespace CCTJ {
     say([
       "Winston lands back at the game jam. It's 2026.",
       "FRIEND: Winston! There you are!",
+      "FRIEND: Check out these cool spotlight drones!",
       "FRIEND: We came up with some killer ideas while we were waiting...",
       "Winston's time-travel adventure sparked some serious creativity.",
     ]);
@@ -130,9 +131,9 @@ namespace CCTJ {
   function addFloatingDrones(): void {
     // Swapped: east-facing drone on the left, west-facing on the right
     let droneLeft = sprites.create(Art.spotlightDroneEast, SpriteKind.Npc);
-    droneLeft.setPosition(30, 40);
+    droneLeft.setPosition(24, 40);
     let droneRight = sprites.create(Art.spotlightDroneWest, SpriteKind.Npc);
-    droneRight.setPosition(130, 40);
+    droneRight.setPosition(136, 40);
 
     // Build wobble frames by shifting the image up/down within the sprite
     let eastUp = shiftImage(Art.spotlightDroneEast, -2);
