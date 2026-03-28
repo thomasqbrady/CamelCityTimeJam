@@ -51,42 +51,58 @@ namespace CCTJ {
     while (controller.A.isPressed() || controller.B.isPressed()) { pause(20); }
   }
 
-  /** Create a dialog box image with word-wrapped text. */
-  function createDialogImage(text: string, center: boolean = false): Image {
-    let wrapped = wordWrap(text, 24);
-    let lineCount = Math.min(wrapped.length, 3);
+  /** Create a dialog box image from pre-wrapped lines. */
+  function createDialogPageImage(lines: string[], center: boolean, hasMore: boolean): Image {
+    let lineCount = lines.length;
     let boxH = lineCount * 10 + 8;
-    // Full-screen image so we can position the box within it
     let img = image.create(160, 120);
-    let boxY = center ? (120 - boxH) / 2 : 120 - boxH - 2;
+    let boxY = center ? (120 - boxH) / 2 : 2;
     // Draw box background and border
-    img.fillRect(2, boxY, 156, boxH, 15); // black fill
-    img.drawRect(2, boxY, 156, boxH, 1);  // white border
-    // Word-wrap and draw text
+    img.fillRect(2, boxY, 156, boxH, 1);  // white fill
+    img.drawRect(2, boxY, 156, boxH, 15); // black border
+    // Draw text lines
     for (let i = 0; i < lineCount; i++) {
-      img.print(wrapped[i], 6, boxY + 4 + i * 10, 1);
+      img.print(lines[i], 6, boxY + 4 + i * 10, 15);
     }
-    // Draw prompt indicator
-    img.print("A", 148, boxY + boxH - 10, 5); // yellow A prompt
+    // Draw prompt indicator — arrow if more pages, A if last page
+    if (hasMore) {
+      img.print(">", 148, boxY + boxH - 10, 8); // blue > for "more"
+    } else {
+      img.print("A", 148, boxY + boxH - 10, 8); // blue A prompt
+    }
     return img;
   }
 
-  /** Show a single dialog line and wait for A or B to dismiss. */
+  /** Show a single dialog line and wait for A or B to dismiss. Paginates if text exceeds 3 lines. */
   function showDialog(text: string, center: boolean = false): void {
-    // Create a sprite for the dialog so it renders above all other sprites
-    let dialogImg = createDialogImage(text, center);
-    let dialogSprite = sprites.create(dialogImg, SpriteKind.Npc);
-    dialogSprite.setPosition(80, 60);
-    dialogSprite.z = 1000; // render above everything
-    // Wait for A or B press (edge-triggered)
-    debounceAB();
-    while (true) {
-      if (controller.A.isPressed() || controller.B.isPressed()) {
-        break;
+    let wrapped = wordWrap(text, 24);
+    let linesPerPage = 3;
+    let pageStart = 0;
+
+    while (pageStart < wrapped.length) {
+      let pageEnd = Math.min(pageStart + linesPerPage, wrapped.length);
+      let pageLines: string[] = [];
+      for (let i = pageStart; i < pageEnd; i++) {
+        pageLines.push(wrapped[i]);
       }
-      pause(20);
+      let hasMore = pageEnd < wrapped.length;
+
+      let dialogImg = createDialogPageImage(pageLines, center, hasMore);
+      let dialogSprite = sprites.create(dialogImg, SpriteKind.Npc);
+      dialogSprite.setPosition(80, 60);
+      dialogSprite.z = 1000; // render above everything
+      // Wait for A or B press (edge-triggered)
+      debounceAB();
+      while (true) {
+        if (controller.A.isPressed() || controller.B.isPressed()) {
+          break;
+        }
+        pause(20);
+      }
+      dialogSprite.destroy();
+
+      pageStart = pageEnd;
     }
-    dialogSprite.destroy();
   }
 
   /** Show a sequence of dialogue lines (bottom text box). */
@@ -146,7 +162,7 @@ namespace CCTJ {
         pause(75);
       }
 
-      // Only Winston disappears — NPCs stay visible
+      // Only Simon disappears — NPCs stay visible
       for (let s of sprites.allOfKind(SpriteKind.Player)) {
         s.destroy(effects.disintegrate, 400);
       }
@@ -156,7 +172,7 @@ namespace CCTJ {
       clearAllSprites();
       scene.setBackgroundColor(15); // black
     } else {
-      // Only Winston disappears — NPCs stay visible
+      // Only Simon disappears — NPCs stay visible
       for (let s of sprites.allOfKind(SpriteKind.Player)) {
         s.destroy(effects.disintegrate, 400);
       }
@@ -179,19 +195,19 @@ namespace CCTJ {
     scene.setBackgroundColor(bgColor);
     let npc = sprites.create(npcImage, SpriteKind.Npc);
     npc.setPosition(32, 56);
-    let winston = sprites.create(winstonImageLeft(), SpriteKind.Player);
-    winston.setPosition(128, 56);
+    let simon = sprites.create(winstonImageLeft(), SpriteKind.Player);
+    simon.setPosition(128, 56);
     return npc;
   }
 
   /** Set up a dialogue scene with a pre-rendered background image. */
-  export function setupRichScene(bgImage: Image, npcImage: Image, npcX: number, npcY: number, winstonX: number, winstonY: number): Sprite {
+  export function setupRichScene(bgImage: Image, npcImage: Image, npcX: number, npcY: number, simonX: number, simonY: number): Sprite {
     clearAllSprites();
     scene.setBackgroundImage(bgImage);
     let npc = sprites.create(npcImage, SpriteKind.Npc);
     npc.setPosition(npcX, npcY);
-    let winston = sprites.create(winstonImageLeft(), SpriteKind.Player);
-    winston.setPosition(winstonX, winstonY);
+    let simon = sprites.create(winstonImageLeft(), SpriteKind.Player);
+    simon.setPosition(simonX, simonY);
     return npc;
   }
 

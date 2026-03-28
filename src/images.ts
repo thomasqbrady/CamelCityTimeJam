@@ -11,7 +11,7 @@
 
 namespace Art {
 
-    // ── Winston the Camel (64x64) — Pro-mode sprites ───────────
+    // ── Simon the Camel (64x64) — Pro-mode sprites ───────────
 
     export const winstonSouth: Image = img`
         . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . f f f f f f f . . . . . . . . . . . . . . . . . . . .
@@ -283,7 +283,7 @@ namespace Art {
     `
 
 
-    // ── Winston No-Shades (64x64) — Pro-mode sprites ─────────
+    // ── Simon No-Shades (64x64) — Pro-mode sprites ─────────
 
     export const winstonNoShadesSouth: Image = img`
         . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -1084,7 +1084,7 @@ export const vortex: Image = img`
     `
 
 
-    // ── Winston Walk Animation Frames (64x64) ──────────────────
+    // ── Simon Walk Animation Frames (64x64) ──────────────────
 
     export const winstonWalkFrame0: Image = img`
         . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .

@@ -92,7 +92,7 @@ function drawTitleScreen(): void {
   bg.print("A Martes Delta Co", 24, 44, 11);
   bg.print("Production", 48, 54, 11);
 
-  // Winston
+  // Simon
   let wImg = CCTJ.sunglassesMode ? Art.winstonShades : Art.winstonProEast;
   bg.drawImage(wImg, 82, 68);
 
@@ -108,20 +108,20 @@ function openingCutscene(): void {
   // Draw the present-day game jam scene
   scene.setBackgroundImage(Art.bg_highschool);
 
-  let winston = sprites.create(CCTJ.winstonImage(), SpriteKind.Player);
-  winston.setPosition(0, 86);
+  let simon = sprites.create(CCTJ.winstonImage(), SpriteKind.Player);
+  simon.setPosition(0, 86);
 
-  // Winston walks toward the building with walk animation
+  // Simon walks toward the building with walk animation
   let walkFrames = CCTJ.winstonWalkImages();
   for (let i = 0; i < 20; i++) {
-    winston.setImage(walkFrames[i % walkFrames.length]);
-    winston.x += 3;
+    simon.setImage(walkFrames[i % walkFrames.length]);
+    simon.x += 3;
     pause(120);
   }
-  winston.setImage(CCTJ.winstonImage());
+  simon.setImage(CCTJ.winstonImage());
 
   CCTJ.npcSay(
-    "WINSTON",
+    "SIMON",
     "Almost there! I can't wait to see what everyone's making this year!",
   );
 
@@ -139,7 +139,7 @@ function openingCutscene(): void {
   let vortexFrames = [vBase, vFx, vFxy, vFy];
 
   let vortex = sprites.create(Art.vortex, SpriteKind.Npc);
-  vortex.setPosition(winston.x + 20, winston.y - 20);
+  vortex.setPosition(simon.x + 20, simon.y - 20);
 
   // Flash, shake, and spin the vortex
   let vFrame = 0;
@@ -155,13 +155,13 @@ function openingCutscene(): void {
   }
 
   scene.cameraShake(6, 600);
-  // Keep spinning as Winston gets pulled in
+  // Keep spinning as Simon gets pulled in
   for (let i = 0; i < 6; i++) {
     vortex.setImage(vortexFrames[vFrame % 4]);
     vFrame++;
     pause(150);
   }
-  winston.destroy(effects.disintegrate, 400);
+  simon.destroy(effects.disintegrate, 400);
   // Spin through the destroy
   for (let i = 0; i < 6; i++) {
     vortex.setImage(vortexFrames[vFrame % 4]);

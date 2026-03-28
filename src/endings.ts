@@ -26,22 +26,22 @@ namespace CCTJ {
     // Draw present-day scene
     scene.setBackgroundImage(Art.bg_highschool);
 
-    let winston = sprites.create(winstonImage(), SpriteKind.Player);
-    winston.setPosition(30, 84);
+    let simon = sprites.create(winstonImage(), SpriteKind.Player);
+    simon.setPosition(30, 84);
 
     let friend = sprites.create(Art.friendNpc, SpriteKind.Npc);
     friend.setPosition(128, 84);
 
     say([
-      "Winston lands back at the game jam. It's 2026.",
-      "FRIEND: Hey, Winston! You're just in time for the game jam!",
+      "Simon lands back at the game jam. It's 2026.",
+      "FRIEND: Hey, Simon! You're just in time for the game jam!",
     ]);
 
     clearAllSprites();
     scene.setBackgroundColor(15);
 
     sayCenter([
-      "Winston made it to the game jam. The games were pretty good.",
+      "Simon made it to the game jam. The games were pretty good.",
       "But what if you'd played a little harder...?",
     ]);
   }
@@ -52,25 +52,25 @@ namespace CCTJ {
     scene.setBackgroundImage(Art.bg_highschool_future);
     addFloatingDrones();
 
-    let winston = sprites.create(winstonImage(), SpriteKind.Player);
-    winston.setPosition(30, 84);
+    let simon = sprites.create(winstonImage(), SpriteKind.Player);
+    simon.setPosition(30, 84);
 
     let friend = sprites.create(Art.friendNpc, SpriteKind.Npc);
     friend.setPosition(128, 84);
 
     say([
-      "Winston lands back at the game jam. It's 2026.",
-      "FRIEND: Winston! There you are!",
+      "Simon lands back at the game jam. It's 2026.",
+      "FRIEND: Simon! There you are!",
       "FRIEND: Check out these cool spotlight drones!",
       "FRIEND: We came up with some killer ideas while we were waiting...",
-      "Winston's time-travel adventure sparked some serious creativity.",
+      "Simon's time-travel adventure sparked some serious creativity.",
     ]);
 
     clearAllSprites();
     scene.setBackgroundColor(15);
 
     sayCenter([
-      "Winston pushed a little harder, dug a little deeper to find inspiration.",
+      "Simon pushed a little harder, dug a little deeper to find inspiration.",
       "It's going to pay off at this year's Camel City Game Jam.",
     ]);
 
@@ -84,13 +84,13 @@ namespace CCTJ {
     // Draw futuristic 2030 scene
     scene.setBackgroundImage(Art.bg_highschool_future_kaiju);
 
-    let winston = sprites.create(winstonImage(), SpriteKind.Player);
-    winston.setPosition(32, 84);
+    let simon = sprites.create(winstonImage(), SpriteKind.Player);
+    simon.setPosition(32, 84);
 
     say([
-      "Winston tumbles out of the vortex. Something's different.",
+      "Simon tumbles out of the vortex. Something's different.",
       "The buildings look... futuristic.",
-      "WINSTON: Wait... what year is it?",
+      "SIMON: Wait... what year is it?",
     ]);
 
     let student = sprites.create(Art.jetpackStudent, SpriteKind.Npc);
