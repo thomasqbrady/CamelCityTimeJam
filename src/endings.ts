@@ -123,27 +123,12 @@ namespace CCTJ {
 
   // ── Celebration effects (LEDs + fanfare) ──────────────────
 
-  /** Play a short victory fanfare using built-in melodies. */
+  /** Play a short victory fanfare. */
   function playFanfare(): void {
-    music.play(music.createSoundEffect(
-      WaveShape.Square, 262, 523, 255, 0, 150,
-      SoundExpressionEffect.None, InterpolationCurve.Linear
-    ), music.PlaybackMode.InBackground);
-    pause(160);
-    music.play(music.createSoundEffect(
-      WaveShape.Square, 330, 659, 255, 0, 150,
-      SoundExpressionEffect.None, InterpolationCurve.Linear
-    ), music.PlaybackMode.InBackground);
-    pause(160);
-    music.play(music.createSoundEffect(
-      WaveShape.Square, 392, 784, 255, 0, 150,
-      SoundExpressionEffect.None, InterpolationCurve.Linear
-    ), music.PlaybackMode.InBackground);
-    pause(160);
-    music.play(music.createSoundEffect(
-      WaveShape.Square, 523, 1047, 255, 0, 400,
-      SoundExpressionEffect.None, InterpolationCurve.Linear
-    ), music.PlaybackMode.InBackground);
+    music.playTone(262, 150); // C4
+    music.playTone(330, 150); // E4
+    music.playTone(392, 150); // G4
+    music.playTone(523, 400); // C5
   }
 
 
@@ -188,17 +173,20 @@ namespace CCTJ {
   }
 
   function addFloatingDrones(): void {
-    // Swapped: east-facing drone on the left, west-facing on the right
+    // Generate west-facing drone by flipping east (saves ~8KB)
+    let westImg = Art.spotlightDroneEast.clone();
+    westImg.flipX();
+
     let droneLeft = sprites.create(Art.spotlightDroneEast, SpriteKind.Npc);
     droneLeft.setPosition(24, 40);
-    let droneRight = sprites.create(Art.spotlightDroneWest, SpriteKind.Npc);
+    let droneRight = sprites.create(westImg, SpriteKind.Npc);
     droneRight.setPosition(136, 40);
 
     // Build wobble frames by shifting the image up/down within the sprite
     let eastUp = shiftImage(Art.spotlightDroneEast, -2);
     let eastDown = shiftImage(Art.spotlightDroneEast, 2);
-    let westUp = shiftImage(Art.spotlightDroneWest, -2);
-    let westDown = shiftImage(Art.spotlightDroneWest, 2);
+    let westUp = shiftImage(westImg, -2);
+    let westDown = shiftImage(westImg, 2);
 
     // Frame-based animation runs during blocking dialog calls
     animation.runImageAnimation(
@@ -209,7 +197,7 @@ namespace CCTJ {
     );
     animation.runImageAnimation(
       droneRight,
-      [westDown, Art.spotlightDroneWest, westUp, Art.spotlightDroneWest],
+      [westDown, westImg, westUp, westImg],
       400,
       true,
     );
