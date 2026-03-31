@@ -176,20 +176,16 @@ function startGame(): void {
   drawTitleScreen();
   waitForStartWithKonami();
 
-  // DEBUG: Skip to best ending
-  CCTJ.creativityScore = 6;
+  // Opening cutscene
+  openingCutscene();
+
+  // Three chapters
+  CCTJ.playChapter1();
+  CCTJ.playChapter2();
+  CCTJ.playChapter3();
+
+  // Ending
   CCTJ.endingScene();
-
-  // // Opening cutscene
-  // openingCutscene();
-
-  // // Three chapters
-  // CCTJ.playChapter1();
-  // CCTJ.playChapter2();
-  // CCTJ.playChapter3();
-
-  // // Ending
-  // CCTJ.endingScene();
 
   // Return to title
   game.reset();
