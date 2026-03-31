@@ -27,10 +27,10 @@ namespace CCTJ {
     scene.setBackgroundImage(Art.bg_highschool);
 
     let simon = sprites.create(winstonImage(), SpriteKind.Player);
-    simon.setPosition(30, 84);
+    simon.setPosition(30, 90);
 
     let friend = sprites.create(Art.friendNpc, SpriteKind.Npc);
-    friend.setPosition(128, 84);
+    friend.setPosition(128, 90);
 
     say([
       "Simon lands back at the game jam. It's 2026.",
@@ -53,10 +53,10 @@ namespace CCTJ {
     addFloatingDrones();
 
     let simon = sprites.create(winstonImage(), SpriteKind.Player);
-    simon.setPosition(30, 84);
+    simon.setPosition(30, 90);
 
     let friend = sprites.create(Art.friendNpc, SpriteKind.Npc);
-    friend.setPosition(128, 84);
+    friend.setPosition(128, 90);
 
     say([
       "Simon lands back at the game jam. It's 2026.",
@@ -85,7 +85,7 @@ namespace CCTJ {
     scene.setBackgroundImage(Art.bg_highschool_future_kaiju);
 
     let simon = sprites.create(winstonImage(), SpriteKind.Player);
-    simon.setPosition(32, 84);
+    simon.setPosition(32, 90);
 
     say([
       "Simon tumbles out of the vortex. Something's different.",
@@ -94,7 +94,7 @@ namespace CCTJ {
     ]);
 
     let student = sprites.create(Art.jetpackStudent, SpriteKind.Npc);
-    student.setPosition(128, 84);
+    student.setPosition(128, 90);
 
     say([
       "A sign reads: CAMEL CITY GAME JAM 2030",
