@@ -150,7 +150,7 @@ namespace CCTJ {
   /** Flash PyGamer NeoPixels in celebratory colors via raw sendBuffer. */
   function celebrateLEDs(durationMs: number): void {
     // PyGamer has 5 NeoPixels on D8, GRB color order (mode 1)
-    let neoPin = DigitalPin.D8;
+    let dataPin = pins.pinByCfg(DAL.CFG_PIN_NEOPIXEL);
     let colors = [
       [0x00, 0xFF, 0x00], // red   (GRB)
       [0x88, 0xFF, 0x00], // orange
@@ -169,13 +169,13 @@ namespace CCTJ {
         buf[i * 3 + 1] = c[1]; // R
         buf[i * 3 + 2] = c[2]; // B
       }
-      light.sendBuffer(neoPin, DigitalPin.D8, 1, buf);
+      light.sendBuffer(dataPin, undefined, 1, buf);
       frame++;
       pause(120);
     }
     // Turn off all LEDs
     buf.fill(0);
-    light.sendBuffer(neoPin, DigitalPin.D8, 1, buf);
+    light.sendBuffer(dataPin, undefined, 1, buf);
   }
 
   // ── Floating Drones ───────────────────────────────────────
