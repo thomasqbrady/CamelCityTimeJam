@@ -146,19 +146,36 @@ namespace CCTJ {
     ), music.PlaybackMode.InBackground);
   }
 
-  /** Flash NeoPixel LEDs in celebratory colors to simulate confetti/fireworks. */
+
+  /** Flash PyGamer NeoPixels in celebratory colors via raw sendBuffer. */
   function celebrateLEDs(durationMs: number): void {
-    let colors = [0xFF0000, 0xFF8800, 0xFFFF00, 0x00FF00, 0x0088FF, 0xFF00FF];
+    // PyGamer has 5 NeoPixels on D8, GRB color order (mode 1)
+    let neoPin = DigitalPin.D8;
+    let colors = [
+      [0x00, 0xFF, 0x00], // red   (GRB)
+      [0x88, 0xFF, 0x00], // orange
+      [0xFF, 0xFF, 0x00], // yellow
+      [0xFF, 0x00, 0x00], // green
+      [0x00, 0x00, 0x88], // blue
+      [0x00, 0xFF, 0xFF], // magenta
+    ];
+    let buf = pins.createBuffer(15); // 5 LEDs × 3 bytes (GRB)
     let end = game.runtime() + durationMs;
     let frame = 0;
     while (game.runtime() < end) {
       for (let i = 0; i < 5; i++) {
-        light.setPixelColor(i, colors[(i + frame) % colors.length]);
+        let c = colors[(i + frame) % colors.length];
+        buf[i * 3 + 0] = c[0]; // G
+        buf[i * 3 + 1] = c[1]; // R
+        buf[i * 3 + 2] = c[2]; // B
       }
+      light.sendBuffer(neoPin, DigitalPin.D8, 1, buf);
       frame++;
       pause(120);
     }
-    light.clear();
+    // Turn off all LEDs
+    buf.fill(0);
+    light.sendBuffer(neoPin, DigitalPin.D8, 1, buf);
   }
 
   // ── Floating Drones ───────────────────────────────────────
