@@ -74,8 +74,9 @@ namespace CCTJ {
       "It's going to pay off at this year's Camel City Game Jam.",
     ]);
 
+    playFanfare();
     effects.confetti.startScreenEffect(4800);
-    pause(5600);
+    celebrateLEDs(5600);
   }
 
   // ── Ending C: "Visionary" (Score 5–6) ──────────────────────
@@ -108,6 +109,7 @@ namespace CCTJ {
     clearAllSprites();
 
     // Fireworks on the futuristic backdrop
+    playFanfare();
     effects.confetti.startScreenEffect(8000);
     scene.cameraShake(2, 500);
 
@@ -116,7 +118,49 @@ namespace CCTJ {
       "Now go make something amazing.",
     ]);
 
-    pause(4000);
+    celebrateLEDs(4000);
+  }
+
+  // ── Celebration effects (LEDs + fanfare) ──────────────────
+
+  /** Play a short victory fanfare using built-in melodies. */
+  function playFanfare(): void {
+    music.play(music.createSoundEffect(
+      WaveShape.Square, 262, 523, 255, 0, 150,
+      SoundExpressionEffect.None, InterpolationCurve.Linear
+    ), music.PlaybackMode.InBackground);
+    pause(160);
+    music.play(music.createSoundEffect(
+      WaveShape.Square, 330, 659, 255, 0, 150,
+      SoundExpressionEffect.None, InterpolationCurve.Linear
+    ), music.PlaybackMode.InBackground);
+    pause(160);
+    music.play(music.createSoundEffect(
+      WaveShape.Square, 392, 784, 255, 0, 150,
+      SoundExpressionEffect.None, InterpolationCurve.Linear
+    ), music.PlaybackMode.InBackground);
+    pause(160);
+    music.play(music.createSoundEffect(
+      WaveShape.Square, 523, 1047, 255, 0, 400,
+      SoundExpressionEffect.None, InterpolationCurve.Linear
+    ), music.PlaybackMode.InBackground);
+  }
+
+  /** Flash NeoPixel LEDs in celebratory colors to simulate confetti/fireworks. */
+  function celebrateLEDs(durationMs: number): void {
+    let colors = [0xFF0000, 0xFF8800, 0xFFFF00, 0x00FF00, 0x0088FF, 0xFF00FF];
+    let strip = light.createStrip();
+    let end = game.runtime() + durationMs;
+    let frame = 0;
+    while (game.runtime() < end) {
+      for (let i = 0; i < strip.length(); i++) {
+        strip.setPixelColor(i, colors[(i + frame) % colors.length]);
+      }
+      frame++;
+      pause(120);
+    }
+    strip.clear();
+    strip.show();
   }
 
   // ── Floating Drones ───────────────────────────────────────
