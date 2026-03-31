@@ -149,18 +149,16 @@ namespace CCTJ {
   /** Flash NeoPixel LEDs in celebratory colors to simulate confetti/fireworks. */
   function celebrateLEDs(durationMs: number): void {
     let colors = [0xFF0000, 0xFF8800, 0xFFFF00, 0x00FF00, 0x0088FF, 0xFF00FF];
-    let strip = light.createStrip();
     let end = game.runtime() + durationMs;
     let frame = 0;
     while (game.runtime() < end) {
-      for (let i = 0; i < strip.length(); i++) {
-        strip.setPixelColor(i, colors[(i + frame) % colors.length]);
+      for (let i = 0; i < 5; i++) {
+        light.setPixelColor(i, colors[(i + frame) % colors.length]);
       }
       frame++;
       pause(120);
     }
-    strip.clear();
-    strip.show();
+    light.clear();
   }
 
   // ── Floating Drones ───────────────────────────────────────
