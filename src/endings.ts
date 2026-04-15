@@ -134,6 +134,11 @@ namespace CCTJ {
 
   /** Flash PyGamer NeoPixels in celebratory colors via raw sendBuffer. */
   function celebrateLEDs(durationMs: number): void {
+    // Skip on simulator — NeoPixel hardware APIs aren't implemented there.
+    if (control.deviceDalVersion() == "sim") {
+      pause(durationMs);
+      return;
+    }
     // PyGamer has 5 NeoPixels on D8, GRB color order (mode 1)
     let dataPin = pins.pinByCfg(DAL.CFG_PIN_NEOPIXEL);
     let colors = [
