@@ -247,7 +247,6 @@ namespace CCTJ {
     // Labels
     if (variant == 1) {
       bg.print("PENTOMINOES", 2, 2, 7);
-      bg.print("No rotate", 2, 14, 11);
     } else {
       bg.print("TETROMINOES", 2, 2, 9);
       bg.print("A: rotate", 2, 14, 11);
