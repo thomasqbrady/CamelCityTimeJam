@@ -1,6 +1,0 @@
-CCTJ.resetGameState()
-CCTJ.openingScene()
-CCTJ.playChapter1()
-CCTJ.playChapter2()
-CCTJ.playChapter3()
-CCTJ.endingScene()
